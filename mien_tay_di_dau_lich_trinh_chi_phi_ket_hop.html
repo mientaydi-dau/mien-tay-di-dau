@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miền Tây Đi Đâu? | Du lịch theo ngân sách</title>
+  <style>
+    :root{--green:#176b52;--mint:#e9f6ef;--orange:#ffb454;--ink:#17352c;--muted:#65766f;--white:#fff}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#f7faf7}
+    header{background:linear-gradient(120deg,rgba(10,65,48,.88),rgba(23,107,82,.76)),url('https://images.travelviet.net/vietnam/s3/s3_amazon/c8c50be4-e3c2-415b-b6c8-e4834668b28e-check-in-lo-gach-mang-thit-vinh-long-vuong-quoc-do-nam-canh-dong-song-co-chien-1-1662911129jpeg20241129051640.jpeg') center/cover;color:white;padding:24px max(6vw,22px) 78px}
+    nav{display:flex;justify-content:space-between;align-items:center;gap:18px;max-width:1150px;margin:auto}
+    .brand{font-size:1.2rem;font-weight:850;letter-spacing:.2px}.brand span{color:#ffd18d}
+    nav a{color:white;text-decoration:none;margin-left:20px;font-weight:600}
+    .hero{max-width:1150px;margin:65px auto 0}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:.8rem;font-weight:800;color:#ffda9e}
+    h1{font-size:clamp(2.2rem,5vw,4.5rem);line-height:1.05;max-width:760px;margin:12px 0}
+    .hero p{font-size:1.1rem;max-width:640px;color:#e6f2eb;line-height:1.7}
+    main{max-width:1150px;margin:-42px auto 0;padding:0 22px 60px}
+    .search-card{background:white;border-radius:22px;padding:25px;box-shadow:0 14px 45px #153e2a18;position:relative}
+    .region-heading{grid-column:1/-1;margin:22px 0 2px;padding:12px 15px;border-left:4px solid var(--green,#176b52);background:#eef6f0;border-radius:10px;font-size:1.15rem;color:#214d3b}
+    .search-card h2{margin:0 0 7px;font-size:1.4rem}.hint{color:var(--muted);margin:0 0 20px}
+    .controls{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:14px;align-items:end}
+    label{display:block;font-size:.9rem;font-weight:750;margin-bottom:8px}
+    input,select{width:100%;padding:13px 12px;border:1px solid #d6e3db;border-radius:11px;font:inherit;background:#fff;color:var(--ink)}
+    button{border:0;border-radius:11px;padding:14px 20px;background:var(--green);color:#fff;font:inherit;font-weight:800;cursor:pointer;transition:.2s}
+    button:hover{background:#0e503d;transform:translateY(-1px)}
+    .quick{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;align-items:center;color:var(--muted);font-size:.9rem}
+    .chip{padding:7px 11px;background:var(--mint);border:1px solid #d3e9dc;border-radius:999px;cursor:pointer;color:var(--green);font-weight:700}
+    .section-head{display:flex;justify-content:space-between;gap:15px;align-items:end;margin:42px 0 18px}
+    .section-head h2{margin:0;font-size:1.8rem}.section-head p{margin:5px 0 0;color:var(--muted)}
+    #status{color:var(--green);font-weight:750;font-size:.95rem}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .place{background:white;border:1px solid #e5eee8;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px #17352c0b;display:flex;flex-direction:column}
+    .place img{width:100%;height:190px;object-fit:cover;background:#dcebe1}
+    .image-placeholder{height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px;background:linear-gradient(135deg,#e9f6ef,#dcebe1);color:#176b52;font-weight:800;gap:7px}.image-placeholder small{font-size:.78rem;font-weight:500;color:#65766f}
+    .place-body{padding:19px;display:flex;flex-direction:column;flex:1}
+    .tag{display:inline-block;background:#e7f5ec;color:#176b52;border-radius:99px;padding:5px 9px;font-size:.77rem;font-weight:800;align-self:flex-start}
+    .place h3{font-size:1.2rem;margin:12px 0 7px}.place p{color:var(--muted);line-height:1.55;margin:0 0 12px}
+    .cost{background:#f7faf7;border-radius:12px;padding:12px;margin-top:auto}.cost strong{font-size:1.1rem;color:var(--green)}.cost small{display:block;color:var(--muted);margin-top:4px}
+    .details{font-size:.9rem;margin:12px 0;color:#344e43;line-height:1.7}
+    .empty{grid-column:1/-1;text-align:center;background:white;border:1px dashed #b9d4c4;border-radius:16px;padding:35px;color:var(--muted)}
+    .note{font-size:.88rem;color:var(--muted);line-height:1.65;margin-top:20px}
+    .tips{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:28px}
+    .tip{padding:19px;border-radius:16px;background:var(--mint)}.tip b{display:block;margin-bottom:7px}.tip p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem}
+    footer{background:#123f31;color:#e6f2eb;padding:30px 22px;text-align:center}footer p{margin:5px}
+    @media(max-width:850px){.controls{grid-template-columns:1fr 1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.tips{grid-template-columns:1fr}}
+    @media(max-width:560px){nav a{margin-left:10px;font-size:.9rem}.hero{margin-top:48px}.controls{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.place img{height:210px}.section-head{align-items:start;flex-direction:column}}
+
+    .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:22px}
+    .feature{background:#fff;border:1px solid #e3eee7;border-radius:16px;padding:17px}
+    .feature h3{margin:0 0 8px;font-size:1rem}.feature p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55}
+    .planner{background:#fff;border:1px solid #e3eee7;border-radius:18px;padding:22px;margin-top:28px}
+    .planner-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .planner h2{margin:0 0 7px}.planner .controls{margin-top:16px}
+    .itinerary{margin-top:18px;display:grid;gap:10px}
+    .day-stop{display:flex;gap:13px;align-items:flex-start;padding:13px;border-radius:12px;background:#f4faf6}
+    .time{min-width:75px;font-weight:850;color:var(--green)}
+    .compare{width:100%;border-collapse:collapse;margin-top:14px;font-size:.92rem}
+    .compare th,.compare td{padding:10px;text-align:left;border-bottom:1px solid #e3eee7}
+    .compare th{background:#f2f8f4}
+    .fav-btn{background:#fff;color:var(--green);border:1px solid #b9d8c7;padding:9px 12px;margin-top:12px}
+    .fav-btn:hover{background:#e9f6ef}
+    .place-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .place-actions a{display:inline-block;text-decoration:none;color:var(--green);font-weight:750;border:1px solid #c9dfd1;border-radius:9px;padding:8px 10px;font-size:.88rem}
+    .place-actions a:hover{background:#e9f6ef}
+    .favorite-list{display:grid;gap:10px}
+    .plan-picker{margin:16px 0;padding:16px;background:#f7faf7;border:1px solid #e0ece4;border-radius:14px}
+    .plan-picker-tools{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:9px;align-items:end;margin:12px 0}
+    .plan-place-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:320px;overflow:auto;padding:2px}
+    .plan-place-option{display:flex;align-items:flex-start;gap:9px;padding:10px;background:#fff;border:1px solid #e2ece5;border-radius:10px;font-weight:500;margin:0}
+    .plan-place-option input{width:auto;margin-top:4px;flex-shrink:0}
+    .plan-place-option span{font-size:.9rem;line-height:1.4}
+    .plan-place-option small{display:block;color:var(--muted);margin-top:3px}
+    .favorite-item{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f5faf6;padding:12px;border-radius:11px}
+    .favorite-item button{padding:8px 10px;background:#8c3f35}
+    .subtle-btn{background:#edf6f0;color:var(--green);border:1px solid #cde3d5}
+    .subtle-btn:hover{background:#dcefe3}
+    @media(max-width:850px){.feature-grid{grid-template-columns:1fr 1fr}.planner-grid{grid-template-columns:1fr}}
+    @media(max-width:560px){.plan-picker-tools,.plan-place-list,.feature-grid{grid-template-columns:1fr}.compare{font-size:.8rem}.compare th,.compare td{padding:7px}}
+
+
+    .hours-box{background:#fff8e9;border:1px solid #f1dfb7;border-radius:10px;padding:10px 12px;margin:10px 0;color:#5d4a24;font-size:.9rem;line-height:1.6}
+    .holiday-section{margin-top:30px;background:#fff;border:1px solid #e3eee7;border-radius:18px;padding:22px}
+    .holiday-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+    .holiday-card{background:#f4faf6;border-radius:12px;padding:14px;line-height:1.55}
+    .holiday-card b{display:block;margin-bottom:5px;color:var(--green)}
+    @media(max-width:850px){.holiday-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.holiday-grid{grid-template-columns:1fr}}
+
+
+    .phone-note{font-size:.84rem;color:var(--muted);display:block;margin-top:3px}
+
+    .tag-row{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+    .hot-tag{background:#fff1d9;color:#805018;border:1px solid #f3d7a3}
+    .source-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:.82rem}
+    .source-links a{color:#176b52;text-decoration:underline;text-underline-offset:3px}
+    .admin-note{background:#eef6f0;border-left:4px solid #176b52;border-radius:10px;padding:12px 15px;margin:0 0 18px;color:#344e43;font-size:.9rem;line-height:1.6}
+
+    /* Bố cục tinh gọn, đồng nhất và dễ dùng trên máy tính lẫn điện thoại */
+    html{scroll-behavior:smooth;scroll-padding-top:18px}
+    body{line-height:1.55;background:#f5f8f5}
+    header{padding:18px max(5vw,18px) 66px}
+    nav{max-width:1080px;flex-wrap:wrap}
+    .brand{font-size:1.08rem}
+    .nav-links{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .nav-links a{margin:0;padding:7px 10px;border-radius:9px;font-size:.91rem}
+    .nav-links a:hover{background:#ffffff20}
+    .hero{max-width:1080px;margin:48px auto 0}
+    h1{font-size:clamp(2rem,4.5vw,3.6rem);max-width:700px}
+    .hero p{font-size:1rem;max-width:680px;line-height:1.65}
+    .hero-cta{display:inline-flex;align-items:center;margin-top:8px;padding:11px 16px;background:#fff;color:#176b52;border-radius:10px;text-decoration:none;font-weight:800;box-shadow:0 5px 16px #00000015}
+    .hero-cta:hover{background:#fff3df}
+    main{max-width:1080px;padding:0 18px 44px;margin-top:-34px}
+    .search-card,.planner,.holiday-section{border-radius:16px;padding:20px;box-shadow:0 6px 22px #153e2a0a}
+    .search-card h2,.planner h2{font-size:1.28rem}
+    .hint{font-size:.93rem;line-height:1.6;margin-bottom:15px}
+    .controls{gap:11px}
+    input,select{padding:11px 12px;border-radius:9px}
+    button{padding:11px 15px;border-radius:9px}
+    .quick{gap:7px;margin-top:12px}
+    .chip{padding:6px 10px;font-size:.88rem}
+    .section-head{margin:30px 0 14px;align-items:center}
+    .section-head h2{font-size:1.55rem}
+    .cards{gap:15px}
+    .place{border-radius:14px;box-shadow:0 4px 16px #17352c0a}
+    .place img,.image-placeholder{height:165px}
+    .place-body{padding:15px}
+    .place h3{font-size:1.08rem;margin:10px 0 6px}
+    .place p{font-size:.92rem}
+    .cost{padding:10px;border-radius:10px}
+    .planner{margin-top:22px}
+    .plan-picker{padding:13px;margin:13px 0;border-radius:12px}
+    .plan-place-list{max-height:270px}
+    .plan-place-option{padding:9px}
+    .day-stop{padding:11px;border:1px solid #e4eee7}
+    .feature-grid,.tips{gap:12px;margin-top:20px}
+    .feature,.tip{padding:15px;border-radius:13px}
+    .holiday-grid{gap:10px}
+    .holiday-card{padding:12px;border-radius:10px}
+    .admin-note{font-size:.87rem;padding:11px 13px;margin-bottom:14px}
+    .note{font-size:.84rem}
+    footer{padding:24px 18px;font-size:.9rem}
+    @media(max-width:850px){header{padding-bottom:58px}.hero{margin-top:38px}.controls{grid-template-columns:1fr 1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){header{padding:16px 16px 54px}.nav-links{gap:4px}.nav-links a{font-size:.82rem;padding:6px 7px}.hero{margin-top:30px}main{padding:0 12px 32px}.search-card,.planner,.holiday-section{padding:15px}.controls,.cards,.feature-grid,.tips,.planner-grid,.plan-picker-tools,.plan-place-list{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.place img,.image-placeholder{height:190px}.time{min-width:58px}.day-stop{gap:9px}.hero-cta{font-size:.92rem}}
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="brand">🌿 MIỀN TÂY <span>ĐI ĐÂU?</span></div>
+    <div class="nav-links"><a href="#goi-y">Địa điểm</a><a href="#lap-lich">Lập lịch trình</a><a href="#ngay-le">Ngày lễ</a><a href="#meo">Mẹo du lịch</a></div>
+  </nav>
+  <section class="hero">
+    <div class="eyebrow">Miền Tây sông nước · Trải nghiệm địa phương</div>
+    <h1>Ngân sách của bạn,<br>hành trình của bạn.</h1>
+    <p>Nhập ngân sách để khám phá các điểm đến ở tỉnh Vĩnh Long hiện nay, gồm khu vực Vĩnh Long, Bến Tre cũ và Trà Vinh cũ — từ miệt vườn, làng hoa đến chùa Khmer, biển và món ngon miền Tây.</p>
+    <a class="hero-cta" href="#lap-lich">🗓️ Chọn địa điểm & lập lịch trình</a>
+  </section>
+</header>
+
+<main>
+  <div class="admin-note">Lưu ý địa giới: từ ngày 01/07/2025, Vĩnh Long, Bến Tre và Trà Vinh được sáp nhập thành tỉnh Vĩnh Long. Website vẫn dùng tên vùng “Bến Tre cũ” và “Trà Vinh cũ” trong mô tả để người đi du lịch dễ nhận ra các địa danh quen thuộc. <a href="https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-202-2025-qh15-ve-sap-xep-don-vi-hanh-chinh-cap-tinh-119250612174148722.htm" target="_blank" rel="noopener">Xem nghị quyết chính thức</a>.</div>
+  <section class="search-card" aria-label="Tìm địa điểm theo ngân sách">
+    <h2>💰 Bạn có bao nhiêu cho chuyến đi?</h2>
+    <p class="hint">Ngân sách tối đa 5.000.000đ/người/ngày. Website tách rõ phí vào cửa có nguồn tham khảo và dự toán ăn uống/di chuyển; giá dịch vụ có thể thay đổi, vui lòng xác nhận trước chuyến đi.</p>
+    <div class="controls">
+      <div>
+        <label for="budget">Ngân sách (VNĐ)</label>
+        <input id="budget" type="number" min="0" max="5000000" step="50000" value="5000000" placeholder="Tối đa 5.000.000đ">
+      </div>
+      <div>
+        <label for="interest">Bạn thích gì?</label>
+        <select id="interest">
+          <option value="all">Tất cả trải nghiệm</option>
+          <option value="nature">Thiên nhiên, miệt vườn</option>
+          <option value="culture">Văn hóa, làng nghề</option>
+          <option value="food">Ẩm thực địa phương</option>
+          <option value="relax">Nghỉ ngơi, sinh thái</option>
+        </select>
+      </div>
+      <div>
+        <label for="region">Khu vực / tỉnh cũ</label>
+        <select id="region">
+          <option value="all">Tất cả khu vực</option>
+          <option value="Vĩnh Long cũ">Vĩnh Long (khu vực cũ)</option>
+          <option value="Bến Tre cũ">Bến Tre (khu vực cũ)</option>
+          <option value="Trà Vinh cũ">Trà Vinh (khu vực cũ)</option>
+        </select>
+      </div>
+      <div>
+        <label for="transport">Di chuyển</label>
+        <select id="transport">
+          <option value="motorbike">Xe máy cá nhân</option>
+          <option value="bus">Xe khách / xe buýt</option>
+          <option value="car">Ô tô / taxi</option>
+        </select>
+      </div>
+      <button id="findBtn">Tìm địa điểm</button>
+    </div>
+    <div class="quick">Thử nhanh:
+      <button class="chip" data-money="150000">150.000đ</button>
+      <button class="chip" data-money="300000">300.000đ</button>
+      <button class="chip" data-money="500000">500.000đ</button>
+      <button class="chip" data-money="1000000">1.000.000đ</button>
+      <button class="chip" data-money="2000000">2.000.000đ</button>
+      <button class="chip" data-money="3000000">3.000.000đ</button>
+      <button class="chip" data-money="5000000">5.000.000đ</button>
+    </div>
+  </section>
+
+  <section class="admin-note" aria-label="Lưu ý xác minh giá">
+    <b>Minh bạch giá:</b> Vé vào cửa có nguồn tham khảo được ghi rõ trong mô tả. Với quán ăn, lưu trú, tour, thuyền và trò chơi chưa có bảng giá hiện hành công khai, website không khẳng định đó là giá chính xác; hãy gọi cơ sở để xác nhận. Dự toán/người dùng để lọc ngân sách, không thay thế báo giá chính thức.
+  </section>
+  <section id="goi-y">
+    <div class="section-head">
+      <div><h2>Địa điểm dành cho bạn</h2><p id="subtitle">Chọn ngân sách để xem gợi ý phù hợp.</p></div>
+      <div id="status" aria-live="polite"></div>
+    </div>
+    <div class="cards" id="results"></div>
+    <p class="note">Lưu ý về độ chính xác: phí vào cửa chỉ được ghi là miễn phí khi có nguồn tham khảo phù hợp; dịch vụ riêng như thuyền, trò chơi, ăn uống, gửi xe có thể tính thêm. Tổng chi phí/người là dự toán lập kế hoạch, không phải giá niêm yết của địa điểm. Những nơi chưa có bảng giá công khai được ghi rõ cần xác nhận trực tiếp.</p>
+  </section>
+
+
+  <section class="planner" id="lap-lich">
+    <h2>🗓️ Lập lịch trình & tính chi phí theo ngân sách</h2>
+    <p class="hint">Chọn địa điểm, số người, số ngày và các khoản chi trong cùng một mục. Website tạo lịch trình, tính tổng chi phí nhóm, chi phí bình quân/người và kiểm tra mức dự toán có vượt ngân sách hay không.</p>
+    <div class="plan-picker">
+      <strong>📍 Chọn địa điểm muốn đi</strong>
+      <p class="note" style="margin:6px 0 10px">Đánh dấu một hoặc nhiều địa điểm. Bạn có thể tìm theo tên, tỉnh/khu vực hoặc loại hình.</p>
+      <div class="plan-picker-tools">
+        <div><label for="planSearch">Tìm địa điểm</label><input id="planSearch" type="search" placeholder="Ví dụ: Cồn Phụng, chùa, món ăn..."></div>
+        <button id="selectAllPlan" type="button" class="subtle-btn">Chọn tất cả</button>
+        <button id="clearPlan" type="button" class="subtle-btn">Bỏ chọn</button>
+      </div>
+      <div id="planPlaceList" class="plan-place-list"></div>
+      <p id="planSelectedCount" class="note" style="margin:10px 0 0">Đã chọn 0 địa điểm.</p>
+    </div>
+    <div class="planner-grid">
+      <div><label for="people">Số người tham gia</label><input id="people" type="number" min="1" max="30" value="2"></div>
+      <div><label for="days">Thời lượng</label><select id="days"><option value="1">Đi trong 1 ngày</option><option value="2">2 ngày 1 đêm</option><option value="3">3 ngày 2 đêm</option></select></div>
+      <div><label for="planFood">Ăn uống (VNĐ/người/ngày)</label><input id="planFood" type="number" min="0" step="10000" value="100000"></div>
+      <div><label for="planStay">Lưu trú (VNĐ/nhóm/đêm)</label><input id="planStay" type="number" min="0" step="50000" value="0"></div>
+      <div><label for="planOther">Chi phí khác (VNĐ/nhóm/cả chuyến)</label><input id="planOther" type="number" min="0" step="10000" value="0"></div>
+    </div>
+    <p class="note">Chi phí di chuyển được ước tính theo phương tiện đã chọn ở phần đầu trang; chi phí tham quan lấy từ các địa điểm đã chọn. Nhập thêm ăn uống, lưu trú và chi phí khác để tính tổng dự kiến và so sánh với ngân sách/người.</p>
+    <div class="place-actions">
+      <button id="makePlan">Tạo lịch trình</button>
+      <button class="subtle-btn" id="copyPlan" type="button">Sao chép lịch trình</button>
+    </div>
+    <div id="planOutput" class="itinerary" aria-live="polite"></div>
+  </section>
+
+  <section class="planner" id="yeu-thich">
+    <h2>❤️ Địa điểm yêu thích</h2>
+    <p class="hint">Lưu lại những nơi bạn muốn ghé thăm trong phiên trình duyệt hiện tại.</p>
+    <div id="favorites" class="favorite-list"><p class="note">Bạn chưa lưu địa điểm nào. Nhấn “♡ Lưu yêu thích” trên thẻ địa điểm.</p></div>
+  </section>
+
+    <section>
+    <div class="section-head"><div><h2>✨ Khám phá thêm</h2><p>Các tiện ích hỗ trợ bạn chuẩn bị chuyến đi.</p></div></div>
+    <div class="feature-grid">
+      <div class="feature"><h3>📍 Tìm đường nhanh</h3><p>Mỗi địa điểm có liên kết tìm kiếm bản đồ để bạn xem vị trí và đường đi.</p></div>
+      <div class="feature"><h3>💸 Dự toán linh hoạt</h3><p>Thay đổi phương tiện, số người và số ngày để xem ngân sách dự kiến.</p></div>
+      <div class="feature"><h3>❤️ Lưu nơi muốn đến</h3><p>Giữ danh sách yêu thích ngay trong phiên trình duyệt hiện tại.</p></div>
+      <div class="feature"><h3>🗓️ Lịch trình mẫu</h3><p>Gợi ý thứ tự buổi sáng, trưa và chiều dựa trên các lựa chọn vừa ngân sách.</p></div>
+      <div class="feature"><h3>🔎 Lọc theo sở thích</h3><p>Chọn thiên nhiên, văn hóa, ẩm thực hoặc nghỉ dưỡng để thu hẹp kết quả.</p></div>
+      <div class="feature"><h3>📱 Dễ sử dụng</h3><p>Giao diện tự điều chỉnh cho màn hình máy tính, máy tính bảng và điện thoại.</p></div>
+    </div>
+  </section>
+
+
+  <section class="holiday-section" id="ngay-le">
+    <div class="section-head" style="margin-top:0">
+      <div><h2>🎉 Gợi ý đi chơi ngày lễ & lễ hội</h2><p>Lịch tham khảo để lên kế hoạch; ngày âm lịch và chương trình địa phương thay đổi theo từng năm.</p></div>
+    </div>
+    <div class="holiday-grid">
+      <div class="holiday-card"><b>Tết Dương lịch</b>Ngày 01/01 hằng năm. Nhiều điểm tham quan có thể mở cửa nhưng nên kiểm tra giờ hoạt động.</div>
+      <div class="holiday-card"><b>Tết Nguyên đán</b>Theo lịch âm. Chợ, quán ăn và nhà vườn có thể nghỉ hoặc đổi giờ; đặt dịch vụ và hỏi giá trước.</div>
+      <div class="holiday-card"><b>Giỗ Tổ Hùng Vương</b>Mùng 10 tháng 3 âm lịch. Kiểm tra thông báo của từng điểm tham quan trước khi khởi hành.</div>
+      <div class="holiday-card"><b>Ngày Giải phóng miền Nam</b>30/04 hằng năm. Có thể đông khách tại các điểm nổi tiếng.</div>
+      <div class="holiday-card"><b>Quốc tế Lao động</b>01/05 hằng năm. Nên đặt trước nơi lưu trú, tour thuyền và nhà vườn.</div>
+      <div class="holiday-card"><b>Quốc khánh</b>02/09 hằng năm; lịch nghỉ có thể kéo dài theo quy định từng năm. Kiểm tra thông báo chính thức.</div>
+      <div class="holiday-card"><b>Lễ hội Ok Om Bok – Trà Vinh</b>Thường vào rằm tháng 10 âm lịch, gắn với văn hóa Khmer và hoạt động tại Ao Bà Om. Ngày tổ chức cụ thể thay đổi hằng năm.</div>
+      <div class="holiday-card"><b>Lễ hội tại chùa Khmer</b>Các dịp lễ truyền thống như Chôl Chnăm Thmây và Sene Đôn-ta có thể có hoạt động văn hóa. Tôn trọng nghi lễ và hỏi trước khi chụp ảnh.</div>
+      <div class="holiday-card"><b>Mùa cao điểm cuối tuần</b>Không phải ngày lễ chính thức, nhưng Cồn Phụng, miệt vườn và Biển Ba Động có thể đông; nên đến sớm.</div>
+    </div>
+    <p class="note">Lưu ý: Thời gian mở cửa trên từng thẻ địa điểm là giờ tham khảo, không phải xác nhận trực tiếp từ đơn vị quản lý. Giá vé, phụ thu ngày lễ, giờ phục vụ và lịch lễ hội có thể thay đổi; hãy liên hệ điểm đến trước khi đi.</p>
+  </section>
+
+  <section id="meo">
+    <div class="section-head"><div><h2>Mẹo đi miền Tây tiết kiệm</h2><p>Một vài cách để chuyến đi vui hơn mà không vượt ngân sách.</p></div></div>
+    <div class="tips">
+      <div class="tip"><b>🛵 Tính cả tiền di chuyển</b><p>Chừa một khoản cho xăng xe, phà hoặc phương tiện trung chuyển đến điểm tham quan.</p></div>
+      <div class="tip"><b>🍉 Hỏi giá trước khi dùng</b><p>Với vé tham quan, trái cây, ăn uống hay thuê thuyền, nên hỏi giá và dịch vụ bao gồm trước.</p></div>
+      <div class="tip"><b>🌤️ Đi sớm, kiểm tra thời tiết</b><p>Ưu tiên buổi sáng cho hoạt động ngoài trời và kiểm tra dự báo trước ngày đi.</p></div>
+    </div>
+  </section>
+</main>
+<footer><p><strong>🌿 Miền Tây Đi Đâu?</strong></p><p>Gợi ý hành trình theo ngân sách tại tỉnh Vĩnh Long hiện nay, gồm các vùng Vĩnh Long, Bến Tre cũ và Trà Vinh cũ.</p><p>Ảnh mang tính tham khảo; mở Google Maps để xem thêm hình ảnh và vị trí. Giờ mở cửa, giá vé và dịch vụ có thể thay đổi.</p></footer>
+
+<script>
+  // Nếu ảnh nguồn lỗi, thay bằng ảnh cảnh quan miền Tây để thẻ không bị trống.
+  document.addEventListener("error", function(e) {
+    if (e.target && e.target.tagName === "IMG" && !e.target.dataset.fallbackTried) {
+      e.target.dataset.fallbackTried = "1";
+      e.target.src = "https://thuexeaikim.com/Uploads/837/images/C%E1%BB%93n%20Quy.jpg";
+      e.target.alt = "Ảnh cảnh quan miệt vườn miền Tây (ảnh thay thế)";
+    }
+  }, true);
+  // Chi phí ước lượng để tham khảo; phí vào cửa và dịch vụ cần xác nhận trước chuyến đi.
+  const places = [
+    {name:"Cù lao An Bình",province:"Vĩnh Long",phone:"0906 669 768",phoneNote:"Số của một điểm vườn trên cù lao; hỏi rõ dịch vụ và địa điểm trước khi đi",hours:"Theo giờ hoạt động của từng nhà vườn; nên liên hệ trước (thường đón khách ban ngày)",holidayNote:"Ngày lễ có thể đông khách; đặt nhà vườn/thuyền trước",category:"Thiên nhiên · Miệt vườn",type:["nature","relax","food"],entryCost:0,base:130000,entry:"Tùy nhà vườn; hỏi trước khi vào",costNote:"Nhà vườn thường thu phí theo gói; trái cây, ăn uống và thuyền tính riêng",desc:"Khám phá không gian miệt vườn, vườn cây ăn trái và nhịp sống ven sông.",activities:"Tham quan vườn · Thưởng thức trái cây · Đi thuyền nếu có dịch vụ",img:"https://www.vietnamairlines.com/content/dam/legacy-site-assets/SEO-images/2025%20SEO/Thay%20Anh%20Traffic%20Tieng%20Viet/du%20lich%20vinh%20long/cu-lao-an-binh-tiep-don-nhieu-du-khach-muon-tim-ve-cuoc-song-binh-di-gan-gui-voi-thien-nhien.jpeg"},
+    {name:"Văn Thánh Miếu",province:"Vĩnh Long",phone:"Chưa tìm thấy số trực tiếp được xác minh",phoneNote:"Có thể hỏi Trung tâm thông tin tỉnh Vĩnh Long: 0270 383 7992",hours:"Tham khảo 07:00–17:00; xác nhận lịch mở cửa trước khi đi",holidayNote:"Có thể ghé dịp lễ, nhưng xác nhận giờ mở cửa và hoạt động tưởng niệm",category:"Văn hóa · Lịch sử",type:["culture"],entryCost:0,base:20000,entry:"Tham quan khuôn viên thường miễn phí",costNote:"Gửi xe và ăn uống nếu phát sinh",desc:"Một lựa chọn nhẹ nhàng để tìm hiểu dấu ấn văn hóa và lịch sử địa phương.",activities:"Tham quan di tích · Chụp ảnh · Tìm hiểu lịch sử",img:"https://bvhttdl.mediacdn.vn/2019/9/27/photo-1-15695456673541048835431.jpg"},
+    {name:"Lò gạch Mang Thít",province:"Vĩnh Long",phone:"0908 657 634",phoneNote:"Số liên hệ cơ sở Lò gạch Tám Thu; các lò khác có thể dùng số khác",hours:"Khu vực ngoài trời: ban ngày; lò tư nhân cần xin phép chủ lò",holidayNote:"Nên hỏi trước nếu muốn vào khu lò tư nhân, kể cả dịp lễ",category:"Làng nghề · Check-in",type:["culture","nature"],entryCost:0,base:50000,entry:"Khu vực công cộng thường miễn phí; lò tư nhân có thể thu phí trải nghiệm",costNote:"Trải nghiệm làm gạch/gốm có thể khoảng 20.000–50.000đ; hỏi chủ lò trước",desc:"Ngắm cảnh quan lò gạch truyền thống và tìm hiểu nét nghề thủ công đặc trưng.",activities:"Ngắm cảnh · Chụp ảnh · Khám phá làng nghề",img:"https://luhanhvietnam.com.vn/du-lich/vnt_upload/news/10_2020/lo-gach-mang-thit-cach-khong-xa-ben-pha-dinh-khao.jpg"},
+    {name:"Vườn trái cây địa phương",province:"Vĩnh Long",phone:"Chưa có số chung",phoneNote:"Liên hệ trực tiếp nhà vườn cụ thể; mỗi vườn có số riêng",hours:"Theo giờ của nhà vườn; thường khoảng 07:00–17:00, tùy mùa vụ",holidayNote:"Lễ và cuối tuần nên đặt trước; trái cây phụ thuộc mùa",category:"Miệt vườn · Ẩm thực",type:["nature","food","relax"],entryCost:0,base:180000,entry:"Tùy nhà vườn và mùa vụ",costNote:"Vé vườn/ăn trái cây tham khảo khoảng 30.000–80.000đ; trái cây mang về tính riêng",desc:"Tận hưởng không khí vườn quê và trải nghiệm trái cây theo mùa.",activities:"Tham quan vườn · Thưởng thức trái cây theo mùa",img:"https://www.asiatouradvisor.com/img/2023/06/03/cai-mon-orchad-village1.jpg?h=600&w=900"},
+    {name:"Chợ địa phương & món ngon",province:"Vĩnh Long",phone:"Chưa có số chung",phoneNote:"Liên hệ quán ăn cụ thể vì số điện thoại tùy quán",hours:"Tùy chợ; chợ sáng thường đông khoảng 05:00–10:00",holidayNote:"Chợ có thể hoạt động khác ngày thường vào Tết; kiểm tra từng chợ",category:"Ẩm thực · Đời sống",type:["food","culture"],entryCost:0,base:100000,entry:"Miễn phí vào chợ",costNote:"Món ăn bình dân khoảng 25.000–70.000đ/món; đặc sản tùy lựa chọn",desc:"Khám phá món ăn bình dân và nhịp sống thường ngày của người dân.",activities:"Ăn sáng · Thử món địa phương · Mua đặc sản",img:"https://cdn2.tuoitre.vn/thumb_w/730/471584752817336320/2026/7/12/img-6938-17838206407252063264327.jpg"},
+    {name:"Khu du lịch sinh thái",province:"Vĩnh Long",phone:"Chưa có số chung",phoneNote:"Cần chọn tên khu du lịch cụ thể để tra số chính xác",hours:"Tùy cơ sở; thường khoảng 07:00–17:00, cần kiểm tra nơi cụ thể",holidayNote:"Ngày lễ thường đông; hỏi trước về vé, combo và phụ thu",category:"Sinh thái · Thư giãn",type:["relax","nature"],entryCost:0,base:220000,entry:"Tùy khu du lịch cụ thể",costNote:"Vé và dịch vụ khác nhau theo cơ sở; cần chọn tên khu du lịch để báo giá chính xác",desc:"Gợi ý cho người muốn dành thời gian nghỉ ngơi giữa không gian xanh.",activities:"Dạo vườn · Nghỉ ngơi · Dùng bữa tùy dịch vụ",img:"https://www.vietnamairlines.com/content/dam/legacy-site-assets/SEO-images/2025%20SEO/Thay%20Anh%20Traffic%20Tieng%20Viet/du%20lich%20vinh%20long/cu-lao-an-binh-tiep-don-nhieu-du-khach-muon-tim-ve-cuoc-song-binh-di-gan-gui-voi-thien-nhien.jpeg"},
+    {name:"Khu du lịch Cồn Phụng",province:"Bến Tre",regionLabel:"Bến Tre cũ",phone:"0275 382 2198",phoneNote:"Số liên hệ được niêm yết cho khu du lịch Cồn Phụng",hours:"Tham khảo 07:00–17:00; tour/thuyền có giờ riêng",holidayNote:"Dịp Tết và lễ có thể đông; xác nhận giá vé/tour và đặt dịch vụ trước",category:"Sinh thái · Sông nước",type:["nature","culture","relax"],entryCost:40000,base:160000,entry:"Người lớn 40.000đ; trẻ em 20.000đ theo FAQ trên website Cồn Phụng; giờ đón khách công bố 07:30–16:00. Xác nhận lại trước chuyến đi",costNote:"Thuyền, xuồng, trò chơi và ăn uống có thể tính riêng; combo tour thường cao hơn vé cổng",desc:"Trải nghiệm không gian cù lao, cảnh sông nước và nét văn hóa xứ dừa.",activities:"Tham quan cù lao · Tìm hiểu nghề dừa · Thưởng thức đặc sản",img:"https://vietair.com.vn/Media/Images/con-phung.jpg",infoUrl:"https://conphung.vn/",infoLabel:"Website khu du lịch – giá vé",photoUrl:"https://conphung.vn/",photoLabel:"Nguồn chính thức"},
+    {name:"Khu di tích Nguyễn Đình Chiểu",province:"Bến Tre",regionLabel:"Bến Tre cũ",phone:"0275 385 0394",phoneNote:"Số niêm yết trên cổng thông tin du lịch Bến Tre",hours:"Tham khảo 07:00–17:00; kiểm tra lịch tiếp khách dịp lễ",holidayNote:"Kiểm tra thông báo địa phương về giờ tham quan và hoạt động dịp lễ",category:"Văn hóa · Lịch sử",type:["culture"],entryCost:0,base:40000,entry:"Miễn phí theo cổng thông tin du lịch Bến Tre",costNote:"Gửi xe, nước uống hoặc ăn uống nếu phát sinh",desc:"Tìm hiểu cuộc đời và sự nghiệp của nhà thơ, nhà giáo Nguyễn Đình Chiểu.",activities:"Tham quan khu di tích · Tìm hiểu lịch sử · Chụp ảnh",img:"https://mia.vn/media/uploads/blog-du-lich/khu-di-tich-lang-mo-nguyen-dinh-chieu-tai-hien-khung-canh-lich-su-1-1665831198.jpg"},
+    {name:"Sân chim Vàm Hồ",province:"Bến Tre",regionLabel:"Bến Tre cũ",phone:"0903 759 744",phoneNote:"Hotline Nông trại Hải Vân – Sân chim Vàm Hồ",hours:"Thường tham quan ban ngày; nên đặt trước để xác nhận giờ và dịch vụ",holidayNote:"Nên đặt trước và xác nhận dịch vụ/hướng dẫn vào dịp lễ",category:"Thiên nhiên · Sinh thái",type:["nature","relax"],entryCost:40000,base:100000,entry:"Tham khảo 30.000–50.000đ/người; xác nhận trước khi đi",costNote:"Thuyền và hướng dẫn viên có thể tính theo chuyến/nhóm",desc:"Gợi ý cho người yêu thiên nhiên và muốn khám phá hệ sinh thái vùng cửa sông.",activities:"Ngắm cảnh thiên nhiên · Quan sát chim theo mùa · Chụp ảnh",img:"https://khoahoctv.edu.vn/upload/2025/08/san-chim-vam-ho-005.webp"},
+    {name:"Đặc sản xứ dừa Bến Tre",province:"Bến Tre",regionLabel:"Bến Tre cũ",phone:"Chưa có số chung",phoneNote:"Liên hệ cửa hàng hoặc cơ sở sản xuất cụ thể",hours:"Theo giờ cửa hàng/chợ; nhiều nơi mở khoảng 07:00–18:00",holidayNote:"Giờ cửa hàng có thể thay đổi dịp Tết; hỏi giá và giờ bán trước",category:"Ẩm thực · Đặc sản",type:["food","culture"],entryCost:0,base:120000,entry:"Không có vé vào cửa nếu chỉ ghé cửa hàng/chợ",costNote:"Kẹo dừa và đặc sản tùy loại, thương hiệu và khối lượng",desc:"Khám phá các món ăn và sản phẩm từ dừa đặc trưng của Bến Tre.",activities:"Thử món địa phương · Tham khảo sản phẩm dừa · Mua quà",img:"https://cofresh.vn/wp-content/uploads/2025/01/vien-keo-dua-truyen-thong-cocosweet-scaled-1-2048x1366.jpg"},
+    {name:"Ao Bà Om",province:"Trà Vinh",regionLabel:"Trà Vinh cũ",phone:"Chưa tìm thấy số trực tiếp được xác minh",phoneNote:"Nên hỏi Trung tâm thông tin du lịch Trà Vinh hoặc đơn vị quản lý tại địa phương",hours:"Không gian công cộng, thường có thể ghé ban ngày; dịch vụ/gửi xe tùy thời điểm",holidayNote:"Khu vực có thể đông khi diễn ra lễ hội Khmer; chú ý hướng dẫn tại chỗ",category:"Danh thắng · Thiên nhiên",type:["nature","culture","relax"],entryCost:0,base:30000,entry:"Các bảng giá du lịch tham khảo ghi miễn phí vào cửa; gửi xe/dịch vụ tính riêng",costNote:"Gửi xe, nước uống và ăn uống nếu phát sinh",desc:"Hồ nước và hàng cây cổ thụ tạo nên không gian dạo chơi yên bình, gần khu văn hóa Khmer.",activities:"Dạo bộ · Chụp ảnh · Tìm hiểu văn hóa địa phương",img:"https://www.vietfuntravel.com.vn/image/data/Mekong/du-lich-tra-vinh-ao-ba-om-1.jpg"},
+    {name:"Chùa Âng",province:"Trà Vinh",regionLabel:"Trà Vinh cũ",phone:"Chưa tìm thấy số trực tiếp được xác minh",phoneNote:"Nên liên hệ ban quản lý/nhà chùa qua đầu mối du lịch địa phương",hours:"Tham quan ban ngày, giữ trang phục lịch sự; giờ lễ và sinh hoạt chùa có thể ảnh hưởng việc tham quan",holidayNote:"Lễ hội Khmer có thể đông; tôn trọng nghi lễ, không tự ý chụp ảnh nơi cấm",category:"Kiến trúc · Văn hóa Khmer",type:["culture"],entryCost:0,base:40000,entry:"Không thấy nguồn công khai về vé; các bảng giá du lịch tham khảo ghi miễn phí. Xác nhận tại chỗ; giữ trang phục lịch sự",costNote:"Cúng dường tự nguyện, gửi xe và ăn uống nếu phát sinh",desc:"Ngôi chùa Khmer nổi bật với kiến trúc truyền thống và không gian thanh tịnh.",activities:"Tham quan kiến trúc · Tìm hiểu văn hóa Khmer · Chụp ảnh bên ngoài phù hợp",img:"https://photo-cms-vovworld.zadn.vn/w730/Uploaded/vovworld/thpsplu/2022_08_29/kpvn3_KJXF.jpg"},
+    {name:"Biển Ba Động",province:"Trà Vinh",regionLabel:"Trà Vinh cũ",phone:"Chưa tìm thấy số trực tiếp được xác minh",phoneNote:"Số liên hệ khác nhau theo cơ sở lưu trú và dịch vụ tại bãi biển",hours:"Bãi biển có thể ghé ban ngày; dịch vụ ăn uống/tắm nước ngọt theo giờ cơ sở",holidayNote:"Cuối tuần và ngày lễ đông hơn; hỏi giá dịch vụ trước khi sử dụng",category:"Biển · Nghỉ ngơi",type:["nature","relax","food"],entryCost:0,base:130000,entry:"Các bảng giá du lịch tham khảo ghi miễn phí vào bãi biển; gửi xe, tắm nước ngọt và dịch vụ tính riêng",costNote:"Gửi xe, tắm nước ngọt và hải sản tùy điểm dịch vụ",desc:"Đi dạo biển, tận hưởng gió biển và thưởng thức hải sản địa phương.",activities:"Dạo biển · Ngắm cảnh · Thưởng thức hải sản",img:"https://camnangdulich.com/images/2024/12/kham-pha-bien-ba-dong-tra-vinh-khi-du-lich-mien-tay.jpg"},
+    {name:"Bún nước lèo và bánh tét Trà Cuôn",province:"Trà Vinh",regionLabel:"Trà Vinh cũ",phone:"Chưa có số chung",phoneNote:"Liên hệ quán ăn hoặc cơ sở bánh tét cụ thể",hours:"Tùy quán; nên đi giờ ăn và kiểm tra giờ bán của từng quán",holidayNote:"Quán có thể hết món hoặc đổi giờ dịp lễ; gọi hỏi trước",category:"Ẩm thực · Đặc sản",type:["food","culture"],entryCost:0,base:120000,entry:"Không có vé vào cửa",costNote:"Bún nước lèo tham khảo 30.000–60.000đ/tô; bánh tét tùy cỡ và nhân",desc:"Gợi ý thưởng thức các món ăn nổi tiếng của Trà Vinh, trong đó có bún nước lèo và bánh tét Trà Cuôn.",activities:"Thử món địa phương · Tìm mua đặc sản mang về",img:"https://cdn2.tuoitre.vn/471584752817336320/2023/12/6/10-banh-tet-tra-cuon-17018381881281648399266.jpg"}
+    ,
+    {name:"Làng hoa kiểng Cái Mơn – Chợ Lách",province:"Bến Tre",regionLabel:"Bến Tre cũ",phone:"Chưa có số liên hệ chung được xác minh",phoneNote:"Làng nghề gồm nhiều nhà vườn riêng; hỏi chủ vườn trước khi vào hoặc chụp ảnh",hours:"Tùy từng nhà vườn; nên đi ban ngày và hỏi trước",holidayNote:"Hoa nở theo mùa; khu vực thường rực rỡ hơn vào mùa hoa Tết, nhưng thời điểm nở có thể thay đổi theo thời tiết",category:"Làng nghề · Check-in",type:["nature","culture"],entryCost:0,base:70000,entry:"Không có vé chung cho toàn làng; phí tham quan tùy nhà vườn",costNote:"Dự toán minh họa chưa gồm phí riêng của vườn hoặc tiền mua hoa/cây",desc:"Làng nghề hoa kiểng ở Chợ Lách với các vườn hoa, cúc mâm xôi và cây kiểng. Hình ảnh minh họa là vườn hoa Cái Mơn; cảnh sắc thay đổi theo mùa vụ.",activities:"Ngắm hoa theo mùa · Tìm hiểu nghề trồng hoa kiểng · Chụp ảnh khi được chủ vườn đồng ý",img:"https://mtg.1cdn.vn/2026/01/25/anh-man-hinh-2026-01-25-luc-06.52.07.png",hot:true,infoUrl:"https://1thegioi.vn/anh-sac-xuan-o-lang-hoa-kieng-cai-mon-cho-lach-245193.html",infoLabel:"Thông tin & ảnh báo chí",photoUrl:"https://1thegioi.vn/anh-sac-xuan-o-lang-hoa-kieng-cai-mon-cho-lach-245193.html",photoLabel:"Nguồn ảnh"},
+    {name:"Khu du lịch Lan Vương",province:"Bến Tre",regionLabel:"Bến Tre cũ",phone:"0888 544 898",phoneNote:"Số điện thoại được niêm yết trên cổng thông tin du lịch Bến Tre; nên gọi xác nhận trước khi đi",hours:"07:00–18:00 theo cổng thông tin du lịch Bến Tre; xác nhận lại trước chuyến đi",holidayNote:"Có thể đông vào cuối tuần/ngày lễ; đặt trước nếu đi theo đoàn",category:"Sinh thái · Trò chơi dân gian",type:["nature","relax","culture","food"],entryCost:0,base:130000,entry:"Cổng thông tin du lịch địa phương ghi miễn phí vào cổng; trò chơi, ăn uống và dịch vụ có thể tính phí riêng",costNote:"Dự toán minh họa; kiểm tra bảng giá từng trò chơi/combos trước khi sử dụng",desc:"Khu vui chơi sinh thái với kênh rạch, xuồng chèo và các trò chơi dân gian miền Tây. Ảnh minh họa cảnh khách trải nghiệm hoạt động trên sông.",activities:"Chèo xuồng · Trò chơi dân gian · Ăn uống theo dịch vụ tại khu du lịch",img:"https://www.vinagrouptravel.com/Images/Travel/845454243/A/IMG_8743.JPG",hot:true,infoUrl:"https://bentretourism.vn/vi/dulichlanvuong",infoLabel:"Cổng thông tin du lịch địa phương",photoUrl:"https://www.vinagrouptravel.com/ben-tre-kdl-lan-vuong-845454243.html",photoLabel:"Nguồn ảnh"},
+    {name:"Cồn Quy",province:"Bến Tre",regionLabel:"Bến Tre cũ",phone:"Chưa có số chung được xác minh",phoneNote:"Dịch vụ thuyền, nhà vườn và tour có đơn vị liên hệ riêng; đặt qua đơn vị cung cấp cụ thể",hours:"Theo lịch tour và nhà vườn; cần đặt và xác nhận trước",holidayNote:"Nên đặt trước vào cuối tuần và ngày lễ; hoạt động thực tế tùy gói tour",category:"Cù lao · Sông nước",type:["nature","food","culture","relax"],entryCost:0,base:160000,entry:"Không có mức vé chung được xác minh; chi phí thường phụ thuộc tour/nhà vườn",costNote:"Dự toán minh họa, chưa thay thế báo giá tour thực tế",desc:"Cù lao nhỏ trên sông Tiền, nổi bật với vườn cây, cảnh sông nước và hoạt động xuồng/thuyền theo tour.",activities:"Đi thuyền theo tour · Thăm vườn · Thưởng thức trái cây và đặc sản nếu gói dịch vụ có",img:"https://thuexeaikim.com/Uploads/837/images/C%E1%BB%93n%20Quy.jpg",hot:true,infoUrl:"https://vnexpress.net/cam-nang-du-lich-ben-tre-4447138.html",infoLabel:"Thông tin du lịch tham khảo",photoUrl:"https://thuexeaikim.com/du-lich-miet-vuon-du-lich-ben-tre.htm",photoLabel:"Nguồn ảnh"},
+    {name:"Chùa Vàm Ray",province:"Trà Vinh",regionLabel:"Trà Vinh cũ",phone:"Chưa tìm thấy số trực tiếp được xác minh",phoneNote:"Nên hỏi đầu mối du lịch địa phương nếu đi đoàn hoặc cần xác nhận lịch sinh hoạt",hours:"Tham quan ban ngày, theo giờ sinh hoạt của chùa; nên hỏi trước nếu đi đoàn",holidayNote:"Có thể đông vào dịp lễ Khmer; tôn trọng nghi lễ và quy định chụp ảnh",category:"Kiến trúc · Văn hóa Khmer",type:["culture"],entryCost:0,base:50000,entry:"Chưa có thông tin vé vào cửa được xác minh; giữ trang phục lịch sự",costNote:"Gửi xe, đóng góp tự nguyện và ăn uống nếu phát sinh",desc:"Ngôi chùa Khmer nổi bật với cổng và các chi tiết kiến trúc sơn vàng. Ảnh minh họa là cổng chùa Vàm Ray, không phải ảnh dựng.",activities:"Ngắm kiến trúc Khmer · Tìm hiểu văn hóa địa phương · Tham quan với thái độ tôn trọng nơi thờ tự",img:"https://cdn-i.vtcnews.vn/resize/UyS5Ytevv35RMYdWgCJgDBZmRQp8-d730/upload/2022/07/22/vam-ray-do-minh-tan-14195557.jpg",hot:true,infoUrl:"https://vtcnews.vn/ngoi-chua-dat-vang-co-lich-su-hon-600-nam-o-tra-vinh-nguy-nga-nhu-cung-dien-ar689536.html",infoLabel:"Bài viết giới thiệu chùa",photoUrl:"https://vtcnews.vn/ngoi-chua-dat-vang-co-lich-su-hon-600-nam-o-tra-vinh-nguy-nga-nhu-cung-dien-ar689536.html",photoLabel:"Nguồn ảnh"},
+    {name:"Chùa Hang (Kompong Chray)",province:"Trà Vinh",regionLabel:"Trà Vinh cũ",phone:"Chưa tìm thấy số trực tiếp được xác minh",phoneNote:"Liên hệ đầu mối du lịch địa phương nếu cần xác nhận lịch đón đoàn",hours:"Tham quan ban ngày; theo giờ sinh hoạt của chùa",holidayNote:"Giữ yên tĩnh, trang phục lịch sự và không chụp ảnh ở nơi có biển hạn chế",category:"Kiến trúc · Văn hóa Khmer",type:["culture","nature"],entryCost:0,base:40000,entry:"Chưa có thông tin vé vào cửa được xác minh",costNote:"Gửi xe và ăn uống nếu phát sinh",desc:"Chùa Khmer có cổng phía tây với các vòm giống cửa hang — đặc điểm gắn với tên gọi Chùa Hang. Ảnh minh họa đúng khuôn viên chùa.",activities:"Tham quan kiến trúc Khmer · Tìm hiểu nghệ thuật trang trí chùa · Dạo khuôn viên khi được phép",img:"https://nld.mediacdn.vn/291774122806476800/2025/2/2/z6280587601784ec541af9e7bfa54b5547b0371b29bb5f-17384638004201501284641.jpg",hot:true,infoUrl:"https://nld.com.vn/video-kien-truc-doc-dao-cua-chua-hang-o-tra-vinh-196250202094057254.htm",infoLabel:"Bài viết về kiến trúc chùa",photoUrl:"https://nld.com.vn/video-kien-truc-doc-dao-cua-chua-hang-o-tra-vinh-196250202094057254.htm",photoLabel:"Nguồn ảnh"},
+    {name:"Khu du lịch Huỳnh Kha",province:"Trà Vinh",regionLabel:"Trà Vinh cũ",phone:"Chưa tìm thấy số liên hệ trực tiếp được xác minh",phoneNote:"Xác nhận số điện thoại, giờ mở cửa và dịch vụ với đơn vị quản lý trước khi đi",hours:"Chưa xác minh được giờ hoạt động hiện hành; liên hệ trước chuyến đi",holidayNote:"Giờ hoạt động, vé và dịch vụ có thể thay đổi; không xem chi phí ước lượng trên web là bảng giá chính thức",category:"Vui chơi · Check-in",type:["relax","nature","food"],entryCost:0,base:150000,entry:"Giá vé/dịch vụ hiện hành chưa được xác minh; hỏi đơn vị quản lý",costNote:"Chi phí trên web chỉ là dự toán tham khảo, chưa gồm các dịch vụ tính phí tại chỗ",desc:"Khu du lịch được giới thiệu với không gian cây xanh, hồ nước và cầu/chòi ngắm cảnh. Ảnh minh họa là cầu và chòi bên hồ tại Huỳnh Kha.",activities:"Dạo chơi · Chụp ảnh cảnh quan · Kiểm tra trước các dịch vụ đang hoạt động",img:"https://mia.vn/media/uploads/blog-du-lich/cac-luu-y-1706177397.jpg",hot:true,infoUrl:"https://mia.vn/cam-nang-du-lich/khu-du-lich-huynh-kha-14476",infoLabel:"Bài giới thiệu điểm đến",photoUrl:"https://mia.vn/cam-nang-du-lich/khu-du-lich-huynh-kha-14476",photoLabel:"Nguồn ảnh"},
+    {name:"Khu vực ngắm điện gió Đông Hải 1",province:"Trà Vinh",regionLabel:"Trà Vinh cũ",phone:"Không có số tham quan chung được xác minh",phoneNote:"Đây là công trình năng lượng; không tự ý đi vào khu vận hành hoặc đường/cầu dẫn hạn chế",hours:"Không có giờ tham quan chung được xác minh; chỉ quan sát từ khu vực công cộng được phép",holidayNote:"Tuân thủ biển báo và hướng dẫn tại chỗ; không xâm nhập khu vực công trình",category:"Cảnh biển · Check-in",type:["nature","culture"],entryCost:0,base:90000,entry:"Không có vé tham quan chung được xác minh; lối vào công trình có thể bị hạn chế",costNote:"Dự toán chỉ tính di chuyển và chi tiêu cơ bản; không phải phí dịch vụ tại nhà máy",desc:"Các turbine điện gió ngoài khơi là một nét cảnh quan ven biển của khu vực Duyên Hải. Ảnh minh họa là nhà máy điện gió Đông Hải 1; điểm ngắm thực tế phụ thuộc tuyến đường và quy định tiếp cận.",activities:"Ngắm cảnh từ vị trí công cộng được phép · Chụp ảnh từ khu vực an toàn · Không vào khu vận hành",img:"https://en-cdn.nhandan.vn/images/3c6b1d7d6cd77f0dc549536a41e2cb9b99b7c3c9129d4d2b71f3ea0efe1c0e955b833f599a409e85d09c93fdf3323b9cf0c6469e3a77fc8ea807a5567784358a2a5da57e7816df8de2adf60e88bc4812/7de2e361de35ad4e7c575b320e8ecab9.jpg.webp",hot:true,infoUrl:"https://en.nhandan.vn/dong-hai-1-wind-power-plant-inaugurated-in-tra-vinh-province-post109804.html",infoLabel:"Bài báo về điện gió Đông Hải 1",photoUrl:"https://en.nhandan.vn/dong-hai-1-wind-power-plant-inaugurated-in-tra-vinh-province-post109804.html",photoLabel:"Nguồn ảnh"}
+
+    ,
+    {name:"Chùa Cò (Chùa Nôdol)",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"0909 515 322",phoneNote:"Số liên hệ được niêm yết trên một trang thông tin địa điểm; nên xác nhận trước chuyến đi",hours:"Tham quan ban ngày; tôn trọng giờ sinh hoạt tôn giáo",holidayNote:"Dịp lễ Khmer có thể đông; ăn mặc lịch sự và hỏi trước khi chụp ảnh",category:"Văn hóa Khmer · Tâm linh",type:["culture","nature"],entryCost:0,base:40000,entry:"Chưa thấy vé tham quan chung được xác nhận",costNote:"Gửi xe và chi tiêu cá nhân nếu phát sinh",desc:"Ngôi chùa Khmer nổi tiếng với kiến trúc truyền thống và khuôn viên có nhiều chim cò cư trú.",activities:"Ngắm kiến trúc Khmer · Quan sát chim cò từ nơi được phép · Tìm hiểu văn hóa địa phương",img:"https://mia.vn/media/uploads/blog-du-lich/chua-co-tra-vinh-3-1727359681.jpg",hot:true,infoUrl:"https://vietnamtourism.vn/index.php/tourism/items/1947",infoLabel:"Cục Du lịch Quốc gia Việt Nam",photoUrl:"https://mia.vn/cam-nang-du-lich/van-canh-chua-co-tra-vinh-16826",photoLabel:"Nguồn ảnh và thông tin"},
+    {name:"Cù lao Tân Quy",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa có số chung được xác minh",phoneNote:"Liên hệ nhà vườn hoặc bến đò cụ thể trước khi đi",hours:"Theo nhà vườn và chuyến đò; nên đi ban ngày",holidayNote:"Mùa trái cây và ngày lễ có thể đông; hỏi giá vé vườn, đò và trái cây trước",category:"Cù lao · Miệt vườn",type:["nature","food","relax"],entryCost:0,base:150000,entry:"Không có vé chung cho toàn cù lao; phí tùy nhà vườn và dịch vụ",costNote:"Đò, vé vườn, trái cây và ăn uống có thể tính riêng",desc:"Cù lao trên sông Hậu được biết đến với vườn cây ăn trái và trải nghiệm miệt vườn theo mùa.",activities:"Thăm vườn trái cây · Đi thuyền theo dịch vụ · Thưởng thức trái cây theo mùa",img:"https://thuexeaikim.com/Uploads/837/images/C%E1%BB%93n%20Quy.jpg",hot:true,infoUrl:"https://crystalbay.com/62-du-lich-cu-lao-tan-quy-tra-vinh--kinh-nghiem-vui-choi-chi-tiet-nhat-n56513.html",infoLabel:"Thông tin du lịch",photoUrl:"https://baodantoc.vn/mua-trai-chin-o-cu-lao-tan-qui-1687492253587.htm",photoLabel:"Nguồn ảnh"},
+    {name:"Cù lao Long Trị",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa có số chung được xác minh",phoneNote:"Xác nhận bến thuyền và dịch vụ với đơn vị đón khách",hours:"Theo lịch hoạt động của khu du lịch và dịch vụ thuyền",holidayNote:"Nên liên hệ trước để biết dịch vụ đang hoạt động, phí thuyền và ăn uống",category:"Sinh thái · Sông nước",type:["nature","relax","food"],entryCost:0,base:160000,entry:"Giá dịch vụ tùy đơn vị và gói trải nghiệm",costNote:"Thuyền, ăn uống, thuê xe đạp và hoạt động trải nghiệm có thể tính riêng",desc:"Điểm du lịch sinh thái trên sông Cổ Chiên với chòi nghỉ, vườn cây và các hoạt động khám phá cù lao.",activities:"Đi dạo/đạp xe · Thưởng thức món địa phương · Trải nghiệm sông nước theo dịch vụ",img:"https://mia.vn/media/uploads/blog-du-lich/cu-lao-long-tri-doi-net-1742949852.jpg",hot:true,infoUrl:"https://mia.vn/cam-nang-du-lich/cu-lao-long-tri-tra-vinh-18099",infoLabel:"Thông tin điểm đến",photoUrl:"https://dulichviet.com.vn/tin-tuc/check-in-cu-lao-long-tri-con-bang-diem-du-lich-tra-vinh-noi-tieng",photoLabel:"Nguồn ảnh"},
+    {name:"Khu du lịch sinh thái Tường Anh",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa xác minh được số liên hệ hiện hành",phoneNote:"Gọi hoặc nhắn trang chính thức của cơ sở để xác nhận địa chỉ, hoạt động và giá",hours:"Chưa xác minh được giờ mở cửa hiện hành",holidayNote:"Kiểm tra cơ sở còn hoạt động, dịch vụ và giá ngày lễ trước khi đến",category:"Sinh thái · Nghỉ ngơi",type:["nature","relax","food"],entryCost:0,base:180000,entry:"Chưa xác minh được bảng giá hiện hành",costNote:"Dự toán tham khảo; chưa gồm các dịch vụ phát sinh",desc:"Bổ sung theo tên điểm bạn cung cấp; thông tin vận hành và địa chỉ cụ thể cần được xác nhận trực tiếp để tránh nhầm cơ sở.",activities:"Kiểm tra dịch vụ sinh thái đang mở · Dùng bữa hoặc tham quan nếu cơ sở có cung cấp",img:"",infoUrl:"https://www.google.com/search?q=Khu+du+l%E1%BB%8Bch+sinh+th%C3%A1i+T%C6%B0%E1%BB%9Dng+Anh+Tr%C3%A0+Vinh",infoLabel:"Tìm thông tin cơ sở",photoUrl:"https://www.google.com/search?tbm=isch&q=Khu+du+l%E1%BB%8Bch+sinh+th%C3%A1i+T%C6%B0%E1%BB%9Dng+Anh+Tr%C3%A0+Vinh",photoLabel:"Tìm ảnh cơ sở"},
+    {name:"Bánh canh Bến Có Út Hảo",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa xác minh được số trực tiếp",phoneNote:"Nên tìm đúng quán trên bản đồ hoặc gọi trước để xác nhận địa chỉ/giờ bán",hours:"Tùy giờ bán của quán; nên đi giờ ăn",holidayNote:"Quán có thể hết món hoặc thay đổi giờ vào ngày lễ",category:"Ẩm thực · Món địa phương",type:["food","culture"],entryCost:0,base:70000,entry:"Không vé; thanh toán theo món gọi",costNote:"Giá tô và món thêm cần hỏi trực tiếp tại quán",desc:"Gợi ý quán bánh canh Bến Có theo tên bạn cung cấp; cần xác minh đúng địa chỉ và giờ bán trước khi ghé.",activities:"Thưởng thức bánh canh · Hỏi giá trước khi gọi món",img:"https://t.ex-cdn.com/mientay.giadinhonline.vn/768w/files/content/2023/07/20/z4530978749400_33e70f7644db1b97fe59ee644075c11f-2-0029.jpg",infoUrl:"https://paracelresort.com/review-banh-canh-ben-co-huong-vi-dac-san-tra-vinh-co-gi-dang-thu/",infoLabel:"Thông tin về bánh canh Bến Có",photoUrl:"https://www.google.com/search?tbm=isch&q=B%C3%A1nh+canh+B%E1%BA%BFn+C%C3%B3+%C3%9At+H%E1%BA%A3o",photoLabel:"Tìm ảnh đúng quán"},
+    {name:"Bún suông Hủ Yến",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa xác minh được số trực tiếp",phoneNote:"Xác nhận đúng quán Hủ Yến trên bản đồ trước khi đi",hours:"Tùy giờ bán; nên kiểm tra trước",holidayNote:"Hỏi trước giờ bán và tình trạng còn món",category:"Ẩm thực · Đặc sản Trà Vinh",type:["food","culture"],entryCost:0,base:65000,entry:"Không vé; giá món do quán niêm yết",costNote:"Giá tô và món thêm cần xác nhận trực tiếp",desc:"Bún suông là món đặc sản Trà Vinh với chả tôm hình suông; thông tin cụ thể của quán Hủ Yến cần xác nhận.",activities:"Thưởng thức bún suông · Hỏi giá và giờ bán trước",img:"https://cafefcdn.com/203337114487263232/2022/12/28/photo-2-1672189781463429694898.png",infoUrl:"https://cafef.vn/bun-suong-mon-ngon-don-tim-thuc-khach-moi-khi-toi-tra-vinh-20221228081132541.chn",infoLabel:"Bài viết về bún suông",photoUrl:"https://www.google.com/search?tbm=isch&q=B%C3%BAn+su%C3%B4ng+H%E1%BB%A7+Y%E1%BA%BFn+Tr%C3%A0+Vinh",photoLabel:"Tìm ảnh đúng quán"},
+    {name:"Bún nước lèo Dũng Chưởng",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa xác minh được số trực tiếp",phoneNote:"Tìm đúng tên quán trên bản đồ và xác nhận địa chỉ trước khi đi",hours:"Tùy giờ bán của quán",holidayNote:"Nên hỏi trước giờ mở cửa và món còn phục vụ",category:"Ẩm thực · Đặc sản Khmer",type:["food","culture"],entryCost:0,base:65000,entry:"Không vé; thanh toán theo món",costNote:"Giá tô và đồ ăn kèm cần xác nhận tại quán",desc:"Gợi ý quán bún nước lèo theo tên bạn cung cấp; bún nước lèo là món quen thuộc của ẩm thực Trà Vinh.",activities:"Thưởng thức bún nước lèo · Hỏi giá và giờ bán trước",img:"https://dulich9.com/wp-content/uploads/2023/05/Quan-an-Ben-Tre-Hu-tieu-hai-San-Ben-Tre.jpg",infoUrl:"https://www.google.com/search?q=B%C3%BAn+n%C6%B0%E1%BB%9Bc+l%C3%A8o+D%C5%A9ng+Ch%C6%B0%E1%BB%9Fng+Tr%C3%A0+Vinh",infoLabel:"Tìm thông tin quán",photoUrl:"https://www.google.com/search?tbm=isch&q=B%C3%BAn+n%C6%B0%E1%BB%9Bc+l%C3%A8o+Tr%C3%A0+Vinh",photoLabel:"Tìm ảnh món ăn"},
+    {name:"Bún nước lèo Kim Dung – Ao Bà Om",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa xác minh được số trực tiếp",phoneNote:"Xác nhận đúng quán và vị trí gần Ao Bà Om trên bản đồ",hours:"Tùy giờ bán của quán; kiểm tra trước khi ghé",holidayNote:"Ngày lễ có thể đông; hỏi trước giờ bán",category:"Ẩm thực · Đặc sản Khmer",type:["food","culture"],entryCost:0,base:65000,entry:"Không vé; thanh toán theo món",costNote:"Giá tô và món thêm cần xác nhận trực tiếp",desc:"Gợi ý quán bún nước lèo Kim Dung gần khu Ao Bà Om theo tên bạn cung cấp; địa chỉ chính xác cần kiểm tra.",activities:"Ăn bún nước lèo · Kết hợp tham quan Ao Bà Om nếu thuận tiện",img:"https://dulich9.com/wp-content/uploads/2023/05/Quan-an-Ben-Tre-Hu-tieu-hai-San-Ben-Tre.jpg",infoUrl:"https://www.google.com/search?q=B%C3%BAn+n%C6%B0%E1%BB%9Bc+l%C3%A8o+Kim+Dung+Ao+B%C3%A0+Om",infoLabel:"Tìm thông tin quán",photoUrl:"https://www.google.com/search?tbm=isch&q=B%C3%BAn+n%C6%B0%E1%BB%9Bc+l%C3%A8o+Tr%C3%A0+Vinh",photoLabel:"Tìm ảnh món ăn"},
+    {name:"Khách sạn Cửu Long",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0986 934 168",phoneNote:"Số được đăng trên cổng thông tin du lịch tỉnh; xác nhận phòng và giá trực tiếp",hours:"Liên hệ cơ sở để hỏi giờ nhận/trả phòng",holidayNote:"Nên đặt trước dịp cuối tuần và lễ",category:"Lưu trú · Khách sạn",type:["relax"],entryCost:0,base:450000,entry:"Không vé; giá phòng thay đổi theo ngày và loại phòng",costNote:"Giá dự toán/người không phải giá phòng chính thức; hỏi giá phòng và sức chứa",desc:"Khách sạn được liệt kê tại khu vực Thạnh Phú, tỉnh Vĩnh Long hiện nay (địa bàn Bến Tre cũ). Hãy xác nhận đúng cơ sở khi đặt phòng.",activities:"Nghỉ qua đêm · Liên hệ trước để xác nhận phòng trống và tiện nghi",img:"",infoUrl:"https://vinhlong.gov.vn/du-khach/khach-san-nha-nghi",infoLabel:"Danh sách lưu trú tỉnh Vĩnh Long",photoUrl:"https://www.google.com/search?tbm=isch&q=Kh%C3%A1ch+s%E1%BA%A1n+C%E1%BB%ADu+Long+Th%E1%BA%A1nh+Ph%C3%BA",photoLabel:"Tìm ảnh đúng cơ sở"},
+    {name:"Khách sạn Bích Ngoan",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa xác minh được số trực tiếp",phoneNote:"Cần xác nhận đúng cơ sở, địa chỉ và số điện thoại trước khi đặt",hours:"Theo quy định nhận/trả phòng của cơ sở",holidayNote:"Nên liên hệ trực tiếp để xác nhận phòng trống và phụ thu",category:"Lưu trú · Khách sạn",type:["relax"],entryCost:0,base:450000,entry:"Giá phòng cần xác nhận trực tiếp",costNote:"Dự toán minh họa; chưa phải giá phòng chính thức",desc:"Bổ sung theo tên khách sạn bạn cung cấp; thông tin địa chỉ, số liên hệ và ảnh mặt tiền cần xác minh để tránh nhầm nơi.",activities:"Kiểm tra vị trí · Hỏi giá phòng, tiện nghi và giờ nhận phòng",img:"https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20055776-9dd4085d29a84655478d2c23626d06d2.jpeg?tr=dpr-2",infoUrl:"https://www.google.com/search?q=Kh%C3%A1ch+s%E1%BA%A1n+B%C3%ADch+Ngoan+Tr%C3%A0+Vinh",infoLabel:"Tìm thông tin khách sạn",photoUrl:"https://www.google.com/search?tbm=isch&q=Kh%C3%A1ch+s%E1%BA%A1n+B%C3%ADch+Ngoan+Tr%C3%A0+Vinh",photoLabel:"Tìm ảnh đúng cơ sở"},
+    {name:"Homestyle Cồn Chim",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Chưa xác minh được số liên hệ hiện hành",phoneNote:"Cần đặt và xác nhận với đơn vị homestay/tour Cồn Chim",hours:"Theo lịch đón khách và đặt phòng",holidayNote:"Nên đặt trước; hỏi rõ dịch vụ ăn uống, trải nghiệm cộng đồng và phương tiện ra đảo",category:"Homestay · Du lịch cộng đồng",type:["nature","relax","food","culture"],entryCost:0,base:650000,entry:"Giá lưu trú/tour tùy gói và ngày đi",costNote:"Dự toán tham khảo; chưa gồm chi phí thuyền, bữa ăn hoặc hoạt động nếu tính riêng",desc:"Lựa chọn lưu trú gắn với trải nghiệm cộng đồng tại Cồn Chim; cần xác nhận đúng đơn vị, dịch vụ và phương tiện di chuyển.",activities:"Trải nghiệm đời sống địa phương · Thưởng thức món quê theo gói · Đặt trước khi đến",img:"",infoUrl:"https://www.google.com/search?q=Homestyle+C%E1%BB%93n+Chim+Tr%C3%A0+Vinh",infoLabel:"Tìm thông tin lưu trú",photoUrl:"https://www.google.com/search?tbm=isch&q=Homestyle+C%E1%BB%93n+Chim+Tr%C3%A0+Vinh",photoLabel:"Tìm ảnh đúng cơ sở"},
+    {name:"Mekong Garden Resort & Homestay",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"Xác nhận qua đơn vị đặt phòng",phoneNote:"Giá, số liên hệ và tình trạng phòng có thể thay đổi; liên hệ cơ sở/đơn vị đặt phòng",hours:"Giờ nhận phòng tham khảo 14:00, trả phòng 12:00; xác nhận khi đặt",holidayNote:"Nên đặt trước vào cuối tuần và ngày lễ",category:"Resort · Homestay",type:["nature","relax","food"],entryCost:0,base:850000,entry:"Không vé tham quan; tiền phòng tùy loại phòng và ngày",costNote:"Giá dự toán/người chỉ để lập kế hoạch, không phải báo giá phòng chính thức",desc:"Khu lưu trú phong cách miệt vườn với bungalow, không gian xanh và trải nghiệm sông nước được giới thiệu trên trang đặt phòng.",activities:"Nghỉ dưỡng · Thưởng thức ẩm thực địa phương · Hỏi trước dịch vụ xuồng/xe đạp",img:"https://image.vietgoing.com/hotel/04/11/large/vietgoing_ofm2504034111.webp",hot:true,infoUrl:"https://www.gobooking.com.vn/landing/mekong-garden-resort-tra-vinh",infoLabel:"Thông tin và đặt phòng",photoUrl:"https://www.vietnambooking.com/hotel/vietnam/mekong-garden-resort-tra-vinh.html",photoLabel:"Thông tin lưu trú"},
+    {name:"Sokfarm Farmstay",province:"Vĩnh Long",regionLabel:"Trà Vinh cũ",phone:"0974 018 946",phoneNote:"Số liên hệ được hiển thị cho Farmstay Sokfarm; nên xác nhận dịch vụ và đặt trước",hours:"Theo lịch đặt phòng/hoạt động của farmstay",holidayNote:"Liên hệ trước về phòng, trải nghiệm nông nghiệp và giờ đón khách",category:"Farmstay · Nông nghiệp",type:["nature","relax","culture","food"],entryCost:0,base:750000,entry:"Giá lưu trú và trải nghiệm tùy gói; xác nhận trực tiếp",costNote:"Dự toán minh họa, chưa phải báo giá chính thức",desc:"Farmstay gắn với thương hiệu Sokfarm và sản phẩm mật hoa dừa tại khu vực Tiểu Cần, Trà Vinh cũ.",activities:"Tìm hiểu nông nghiệp dừa · Khám phá sản phẩm địa phương · Xác nhận lịch trải nghiệm trước",img:"https://foodmap.blob.core.windows.net/sokfarm/wp-content/M%C3%B4%20h%C3%ACnh%20m%C3%A1t%20xa%20hoa%20d%E1%BB%ABa%20thu%20m%E1%BA%ADt/19.jpg",hot:true,infoUrl:"https://www.google.com.vn/travel/hotels/entity/ChoIr9C6tc6E58HoARoNL2cvMTFramdjaDM0cBAB",infoLabel:"Thông tin farmstay",photoUrl:"https://www.dearourcommunity.com/post/mat-hoa-dua-tra-vinh-nong-nghiep-hanh-phuc-khoi-dau-tu-han-man",photoLabel:"Nguồn ảnh và thông tin"},
+
+    {name:"KDL sinh thái Làng Xanh",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0948 008 289",phoneNote:"Hotline trên website chính thức; nên xác nhận trước khi đi",hours:"07:00–21:00 theo cổng thông tin du lịch; kiểm tra lại trước chuyến đi",holidayNote:"Dịp lễ nên hỏi trước giá combo, trò chơi và tình trạng đông khách",category:"Sinh thái · Trò chơi dân gian",type:["nature","relax","food"],entryCost:0,base:180000,entry:"Cổng thông tin du lịch ghi miễn phí; dịch vụ và trò chơi có thể tính riêng",costNote:"Chi phí dự toán; giá combo cần xác nhận trực tiếp",desc:"Khu du lịch sinh thái với trò chơi nước, hoạt động nhóm và ẩm thực miền Tây. Ảnh chỉ hiển thị khi xác định được ảnh cụ thể từ nguồn của khu du lịch.",activities:"Trò chơi dân gian · Hoạt động nhóm · Dùng bữa tại khu du lịch",img:"https://langxanheco.vn/files/files_1/9e2ddb32835708095146.jpg",hot:true,infoUrl:"https://langxanheco.vn/",infoLabel:"Website chính thức",photoUrl:"https://bentretourism.vn/vi/dulichlangxanhbentre",photoLabel:"Thông tin và hình ảnh du lịch"},
+    {name:"KDL sinh thái Hạ Thảo",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0915 865 050 / 0275 374 7777",phoneNote:"Số trên website chính thức của Hạ Thảo",hours:"07:00–17:30 theo website; ngày lễ có thể thay đổi",holidayNote:"Hỏi trước giá vé, trò chơi và dịch vụ ngày lễ",category:"Sinh thái · Vui chơi",type:["nature","relax","culture"],entryCost:0,base:180000,entry:"Giá vé và trò chơi cần xác nhận trực tiếp",costNote:"Dự toán tham khảo, không phải bảng giá chính thức",desc:"Khu du lịch sinh thái có trò chơi nước và hoạt động tập thể. Ảnh dẫn từ bài giới thiệu Hạ Thảo, không dùng ảnh địa điểm khác.",activities:"Trò chơi nước · Hoạt động tập thể · Trải nghiệm sinh thái",img:"https://dulichsinhthaihathao.com/thumbs/800x500x2/upload/news/khu-du-lich-ha-thao-11-5917.jpg",infoUrl:"https://dulichsinhthaihathao.com/ve-khu-du-lich-ha-thao-ben-tre-tat-muong-bat-ca-quay-tha-ga-cung-nhung-tro-choi-duoi-nuoc",infoLabel:"Bài giới thiệu Hạ Thảo",photoUrl:"https://dulichsinhthaihathao.com/",photoLabel:"Website Hạ Thảo"},
+    {name:"Biển Cồn Bửng",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"Chưa có số chung được xác minh",phoneNote:"Dịch vụ bãi biển và ăn uống do từng cơ sở cung cấp",hours:"Nên đi ban ngày; hỏi trước điều kiện tắm biển và dịch vụ",holidayNote:"Cuối tuần và ngày lễ có thể đông; hỏi giá hải sản/gửi xe trước",category:"Biển · Ẩm thực",type:["nature","relax","food"],entryCost:0,base:120000,entry:"Không xác minh được vé chung; dịch vụ riêng có thể thu phí",costNote:"Hải sản, gửi xe và dịch vụ tùy quán/điểm",desc:"Bãi biển Cồn Bửng thuộc khu vực Thạnh Phú cũ, nổi bật với bờ biển và hải sản địa phương. Không dùng ảnh bãi biển khác làm ảnh đại diện.",activities:"Dạo biển · Thưởng thức hải sản · Kiểm tra điều kiện thời tiết trước khi đi",img:"https://media.mia.vn/uploads/blog-du-lich/bien-con-bung-ben-tre-noi-tieng-voi-net-dep-thuan-tu-nhien-02-1668519051.jpeg",infoUrl:"https://mia.vn/cam-nang-du-lich/bien-con-bung-ben-tre-noi-tieng-voi-net-dep-thuan-tu-nhien-11579",infoLabel:"Thông tin địa điểm",photoUrl:"https://mia.vn/cam-nang-du-lich/bien-con-bung-ben-tre-noi-tieng-voi-net-dep-thuan-tu-nhien-11579",photoLabel:"Nguồn ảnh biển Cồn Bửng"},
+    {name:"Bãi biển và cánh đồng điện gió Bình Đại",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"Không có số chung",phoneNote:"Chỉ ngắm từ khu vực công cộng được phép; không tự ý vào khu vực vận hành điện gió",hours:"Ban ngày; kiểm tra thời tiết và đường đi",holidayNote:"Không vào khu vực kỹ thuật hoặc đất tư nhân nếu chưa được phép",category:"Biển · Cảnh quan",type:["nature","relax"],entryCost:0,base:90000,entry:"Không có vé chung cho điểm ngắm cảnh công cộng",costNote:"Chi phí đi lại và ăn uống cá nhân",desc:"Cảnh biển Bình Đại với các turbine điện gió ngoài khơi/ven biển. Ảnh được chọn từ bài viết về biển Bình Đại và điện gió, không phải ảnh Cồn Bửng.",activities:"Ngắm cảnh biển · Chụp ảnh từ nơi công cộng · Theo dõi thời tiết",img:"https://mia.vn/media/uploads/blog-du-lich/bien-binh-dai-ben-tre-toa-do-tron-nong-ly-tuong-dip-he-nay-04-1668327292.jpeg",infoUrl:"https://mia.vn/cam-nang-du-lich/bien-binh-dai-ben-tre-toa-do-tron-nong-ly-tuong-dip-he-nay-11529",infoLabel:"Thông tin và ảnh biển Bình Đại",photoUrl:"https://mia.vn/cam-nang-du-lich/bien-binh-dai-ben-tre-toa-do-tron-nong-ly-tuong-dip-he-nay-11529",photoLabel:"Nguồn ảnh"},
+    {name:"Chuối đập nước cốt dừa",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"Không áp dụng",phoneNote:"Món ăn đường phố; quán bán tùy địa điểm",hours:"Tùy người bán; nên kiểm tra giờ bán tại khu vực muốn ghé",holidayNote:"Giá và giờ bán tùy hàng quán",category:"Ẩm thực · Món dân dã",type:["food","culture"],entryCost:0,base:35000,entry:"Không vé; trả tiền theo phần",costNote:"Giá tham khảo, tùy người bán và khẩu phần",desc:"Món chuối xiêm nướng/đập ăn cùng nước cốt dừa, đặc sản dân dã thường gặp ở Bến Tre. Ảnh là món chuối đập nước cốt dừa từ bài viết ẩm thực.",activities:"Thưởng thức món ăn vặt · Hỏi giá trước khi gọi",img:"https://luhanhvietnam.com.vn/du-lich/vnt_upload/news/05_2020/chuoi-dap-ben-tre-cot-dua-_1.jpg",infoUrl:"https://luhanhvietnam.com.vn/du-lich/chuoi-dap-ben-tre-dam-nuoc-cot-dua.html",infoLabel:"Bài viết món chuối đập",photoUrl:"https://luhanhvietnam.com.vn/du-lich/chuoi-dap-ben-tre-dam-nuoc-cot-dua.html",photoLabel:"Nguồn ảnh món ăn"},
+    {name:"Lẩu mắm Trúc Giang",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0916 702 969",phoneNote:"Số niêm yết trên hồ sơ địa điểm; nên gọi xác nhận trước",hours:"09:00–20:30 theo hồ sơ địa điểm; xác nhận lại",holidayNote:"Nên gọi trước vào dịp lễ hoặc nếu đi nhóm đông",category:"Ẩm thực · Lẩu mắm",type:["food","culture"],entryCost:0,base:150000,entry:"Không vé; thanh toán theo món",costNote:"Giá lẩu tùy size và số người; xác nhận tại quán",desc:"Quán Trúc Giang ở Bến Tre được giới thiệu với món lẩu mắm và rau ăn kèm. Ảnh món lẩu từ bài viết giới thiệu chính quán.",activities:"Thưởng thức lẩu mắm · Gọi hỏi phần ăn và giá trước",img:"https://mia.vn/media/uploads/blog-du-lich/ghe-lau-mam-truc-giang-thuong-thuc-dac-san-mien-tay-thu-thiet-4-1665321036.jpg",infoUrl:"https://mia.vn/cam-nang-du-lich/ghe-lau-mam-truc-giang-thuong-thuc-dac-san-mien-tay-10761",infoLabel:"Thông tin quán",photoUrl:"https://mia.vn/cam-nang-du-lich/ghe-lau-mam-truc-giang-thuong-thuc-dac-san-mien-tay-10761",photoLabel:"Ảnh món ăn tại quán"},
+    {name:"Bún riêu Tú Điền",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"Chưa xác minh số trực tiếp",phoneNote:"Nên tìm đúng cơ sở và xác nhận giờ bán trước khi đi",hours:"Theo giờ bán của quán; kiểm tra trước chuyến đi",holidayNote:"Quán ăn có thể đông giờ cao điểm",category:"Ẩm thực · Bún riêu",type:["food","culture"],entryCost:0,base:65000,entry:"Không vé; thanh toán theo tô",costNote:"Giá thực tế tùy món và khẩu phần",desc:"Quán bún riêu Tú Điền tại Bến Tre được giới thiệu trong bài viết du lịch ẩm thực. Ảnh tô bún riêu từ bài viết về chính quán.",activities:"Thưởng thức bún riêu · Hỏi giờ bán và giá trước khi ghé",img:"https://mia.vn/media/uploads/blog-du-lich/thuong-thuc-bun-rieu-tu-dien-dam-da-huong-vi-mien-tay-3-1665304474.jpg",infoUrl:"https://mia.vn/cam-nang-du-lich/thuong-thuc-bun-rieu-tu-dien-dam-da-huong-vi-mien-tay-10756",infoLabel:"Thông tin quán",photoUrl:"https://mia.vn/cam-nang-du-lich/thuong-thuc-bun-rieu-tu-dien-dam-da-huong-vi-mien-tay-10756",photoLabel:"Ảnh món ăn"},
+    {name:"Hủ tiếu hải sản Bến Tre",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0984 373 079",phoneNote:"Số trên hồ sơ địa điểm; gọi xác nhận trước khi ghé",hours:"06:00–21:00 theo hồ sơ quán; xác nhận lại",holidayNote:"Có thể đông hoặc hết món vào giờ cao điểm; nên đi sớm",category:"Ẩm thực · Hủ tiếu",type:["food"],entryCost:0,base:50000,entry:"Không vé; trả tiền theo món",costNote:"Hồ sơ quán ghi khoảng 18.000–40.000đ; giá có thể thay đổi",desc:"Quán hủ tiếu hải sản được ghi nhận tại số 38 Phan Ngọc Tòng, khu vực trung tâm Bến Tre cũ. Ảnh món ăn mang tính minh họa; xem hồ sơ quán để tìm ảnh do thực khách đăng.",activities:"Ăn hủ tiếu hải sản · Kiểm tra giờ mở cửa và giá hiện tại",img:"https://dulich9.com/wp-content/uploads/2023/05/Quan-an-Ben-Tre-Hu-tieu-hai-San-Ben-Tre.jpg",infoUrl:"https://www.foody.vn/ben-tre/hu-tieu-hai-san-ben-tre",infoLabel:"Hồ sơ quán và địa chỉ",photoUrl:"https://www.foody.vn/ben-tre/hu-tieu-hai-san-ben-tre",photoLabel:"Ảnh thực khách / hồ sơ quán"},
+    {name:"Quán ăn gia đình Phương Dung",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"Chưa xác minh",phoneNote:"Có nhiều cơ sở tên tương tự; cần xác nhận đúng địa chỉ trước khi đi",hours:"Chưa xác minh giờ mở cửa",holidayNote:"Gọi xác nhận địa chỉ, giờ mở cửa và đặt bàn trước",category:"Ẩm thực · Quán gia đình",type:["food"],entryCost:0,base:120000,entry:"Không vé; giá theo món",costNote:"Chưa có thực đơn/giá xác thực; hỏi trực tiếp",desc:"Quán ăn sân vườn Phương Dung tại khu vực Châu Thành, Bến Tre cũ. Ảnh tham khảo từ bài giới thiệu địa điểm; xác nhận đúng cơ sở trước khi đến.",activities:"Xác nhận đúng quán · Hỏi thực đơn, giá và giờ mở cửa",img:"https://bentretoplist.com/wp-content/uploads/2024/12/quan-an-gia-dinh-phuong-dung-ben-tre.jpg",infoUrl:"https://www.google.com/search?q=Qu%C3%A1n+%C4%83n+gia+%C4%91%C3%ACnh+Ph%C6%B0%C6%A1ng+Dung+B%E1%BA%BFn+Tre",infoLabel:"Tìm thông tin quán",photoUrl:"https://www.google.com/search?tbm=isch&q=Qu%C3%A1n+%C4%83n+gia+%C4%91%C3%ACnh+Ph%C6%B0%C6%A1ng+Dung+B%E1%BA%BFn+Tre",photoLabel:"Tìm ảnh đúng quán"},
+    {name:"Chùa Vạn Phước",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"Chưa xác minh số liên hệ trực tiếp",phoneNote:"Nên xác nhận với nhà chùa hoặc đầu mối du lịch địa phương",hours:"Tham quan ban ngày; tôn trọng giờ sinh hoạt tôn giáo",holidayNote:"Mặc trang phục lịch sự; giữ yên tĩnh trong khu vực thờ tự",category:"Tâm linh · Kiến trúc",type:["culture","nature"],entryCost:0,base:45000,entry:"Không thấy thông tin vé tham quan chung; xác nhận tại chỗ",costNote:"Gửi xe và chi tiêu tự nguyện nếu có",desc:"Chùa Vạn Phước ở khu vực Bình Đại cũ, nổi bật với kiến trúc nhiều màu sắc, tượng rồng và hồ sen. Ảnh được lấy từ bài viết giới thiệu chính ngôi chùa.",activities:"Tham quan kiến trúc · Tìm hiểu văn hóa Phật giáo · Chụp ảnh nơi được phép",img:"https://cdn.petrotimes.vn/stores/news_dataimages/donghoa/022021/02/15/3953_chua.png?rt=20210202153954",infoUrl:"https://dulich.petrotimes.vn/chua-van-phuoc-tien-canh-tran-gian-giua-vung-dam-lay-cay-dai-kho-can-598638.html",infoLabel:"Bài viết về Chùa Vạn Phước",photoUrl:"https://dulich.petrotimes.vn/chua-van-phuoc-tien-canh-tran-gian-giua-vung-dam-lay-cay-dai-kho-can-598638.html",photoLabel:"Nguồn ảnh"},
+    {name:"Nhà thờ Cái Mơn",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"Chưa xác minh số liên hệ trực tiếp",phoneNote:"Nên liên hệ giáo xứ trước nếu đi theo đoàn",hours:"Giờ tham quan tùy sinh hoạt giáo xứ; tránh làm gián đoạn thánh lễ",holidayNote:"Giữ yên tĩnh, ăn mặc phù hợp và hỏi trước khi chụp ảnh bên trong",category:"Kiến trúc · Tôn giáo",type:["culture"],entryCost:0,base:35000,entry:"Không vé tham quan thông thường; tôn trọng quy định giáo xứ",costNote:"Gửi xe hoặc chi phí cá nhân nếu phát sinh",desc:"Nhà thờ/giáo xứ Cái Mơn ở khu vực Chợ Lách cũ, một công trình tôn giáo gắn với lịch sử địa phương. Chưa xác minh được đường dẫn ảnh trực tiếp phù hợp nên không dùng ảnh thay thế.",activities:"Tham quan kiến trúc bên ngoài · Tìm hiểu lịch sử giáo xứ · Tôn trọng giờ lễ",img:"https://nhathoconggiaovietnam.com/storage/dinhkem/2021/08/nha-tho-cai-mon-0V1pQ.jpg",infoUrl:"https://nhathoconggiaovietnam.com/nha-tho/nha-tho-cai-mon",infoLabel:"Thông tin địa điểm",photoUrl:"https://nhathoconggiaovietnam.com/nha-tho/nha-tho-cai-mon",photoLabel:"Nguồn ảnh nhà thờ"},
+    {name:"Forever Green Resort",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0275 3618 618",phoneNote:"Hotline trên website chính thức",hours:"Theo đặt phòng và dịch vụ; liên hệ resort trước khi đến",holidayNote:"Đặt phòng trước ngày lễ; xác nhận giá, phụ thu và dịch vụ đang hoạt động",category:"Resort · Nghỉ dưỡng",type:["relax","nature","food"],entryCost:0,base:1200000,entry:"Không có vé chung nếu lưu trú; dịch vụ riêng tính theo gói",costNote:"Dự toán tham khảo/người, không phải giá phòng chính thức",desc:"Khu nghỉ dưỡng tại ấp Phú Khương, xã Phú Túc, khu vực Châu Thành cũ; có không gian xanh, nhà hàng, hồ bơi và hoạt động trải nghiệm theo dịch vụ. Chưa dùng ảnh không xác minh được nguồn trực tiếp.",activities:"Nghỉ dưỡng · Hồ bơi · Nhà hàng · Hỏi trước hoạt động trải nghiệm",img:"https://www.forevergreenresort.com/Data/Sites/1/media/about/2.jpg",hot:true,infoUrl:"https://www.forevergreenresort.com/Default.aspx",infoLabel:"Website chính thức",photoUrl:"https://bentretourism.vn/vi/forevergreenresort",photoLabel:"Hồ sơ du lịch"},
+    {name:"Ben Tre Riverside Resort",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0275 354 54 54",phoneNote:"Số điện thoại trên website chính thức",hours:"Theo đặt phòng; nhà hàng/café có giờ riêng",holidayNote:"Nên đặt trước ngày lễ và xác nhận loại phòng",category:"Resort · Nghỉ dưỡng ven sông",type:["relax","food","nature"],entryCost:0,base:1100000,entry:"Không vé chung nếu lưu trú; dịch vụ tính riêng",costNote:"Dự toán tham khảo/người, không phải giá phòng chính thức",desc:"Resort ven sông Hàm Luông tại 708 Nguyễn Văn Tư, khu vực trung tâm Bến Tre cũ. Ảnh mặt tiền và hồ bơi từ hồ sơ hình ảnh của chính resort.",activities:"Nghỉ dưỡng ven sông · Nhà hàng · Café ngắm sông · Xác nhận phòng trước",img:"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/a5/c1/6a/exterior.jpg?h=-1&s=1&w=700",hot:true,infoUrl:"https://bentreriverside.com/lien-he/",infoLabel:"Website chính thức và liên hệ",photoUrl:"https://www.tripadvisor.com/Hotel_Feature-g737085-d8524802-zft9165-Ben_Tre_Riverside_Resort.html",photoLabel:"Ảnh resort"},
+    {name:"Jardin Du Mekong Homestay (Chợ Lách)",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0905 652 578",phoneNote:"Số trên cổng thông tin du lịch Bến Tre",hours:"Theo đặt phòng; liên hệ trước khi đến",holidayNote:"Nên đặt trước, xác nhận giá và các tour/xe đạp nếu cần",category:"Homestay · Miệt vườn",type:["nature","relax","food"],entryCost:0,base:750000,entry:"Không vé tham quan; tiền phòng tùy ngày và loại phòng",costNote:"Dự toán tham khảo/người, chưa phải giá phòng chính thức",desc:"Homestay tại 16/66, ấp Định Bình, xã Hòa Nghĩa, khu vực Chợ Lách cũ; có vườn, cho thuê xe đạp và tour theo thông tin du lịch. Không dùng ảnh không xác minh được.",activities:"Nghỉ giữa vườn · Thuê xe đạp · Hỏi tour địa phương",img:"https://i0.wp.com/photos.smugmug.com/Vietnam/Ben-Tre/i-6BG4pzD/0/cc7zLWNPV8fTjmgTrXswxbrFs953ZsDMjRgM2S2h/X2/DSC01141-1-X2.jpg?ssl=1&w=1100",infoUrl:"https://bentretourism.vn/vi/homestayjardindumekong",infoLabel:"Hồ sơ du lịch và liên hệ",photoUrl:"https://www.yearofthedurian.com/2024/04/durian-mekong-cho-lach-vietnam.html",photoLabel:"Nguồn ảnh homestay"},
+    {name:"Rooster Mekong Home (Chợ Lách)",province:"Vĩnh Long",regionLabel:"Bến Tre cũ",phone:"0275 246 6789 / 0966 434 379",phoneNote:"Số được niêm yết trên cổng thông tin du lịch; xác nhận trước khi đặt",hours:"Theo lịch đặt phòng",holidayNote:"Đặt trước và xác nhận phòng, dịch vụ ăn uống/hoạt động trải nghiệm",category:"Homestay · Nghỉ dưỡng ven sông",type:["nature","relax","food"],entryCost:0,base:850000,entry:"Không vé tham quan; giá phòng và hoạt động tùy gói",costNote:"Dự toán tham khảo/người, không phải báo giá chính thức",desc:"Cơ sở lưu trú ở ấp An Hòa, xã Long Thới, khu vực Chợ Lách cũ; có khu phòng hướng vườn/sông và hoạt động trải nghiệm địa phương theo hồ sơ du lịch. Chưa dùng ảnh nếu chưa xác minh đường dẫn ảnh cụ thể.",activities:"Nghỉ dưỡng · Thưởng thức món địa phương · Hỏi tour vườn và chèo xuồng",img:"https://images.trvl-media.com/lodging/123000000/122710000/122702900/122702858/5fab673b.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575",hot:true,infoUrl:"https://bentretourism.vn/vi/dulichroostermekong",infoLabel:"Hồ sơ du lịch và liên hệ",photoUrl:"https://roostermekong.com.vn/",photoLabel:"Website cơ sở"},
+
+    {name:"Khu Du Lịch Vinh Sang",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"0918 664 499 / 0270 627 7277",phoneNote:"Số liên hệ trên website chính thức; gọi xác nhận trước khi đi",hours:"Kiểm tra lịch hoạt động và giá dịch vụ trên website chính thức",holidayNote:"Nên đặt trước dịp lễ; xác nhận giá vé và trò chơi",category:"Sinh thái · Miệt vườn",type:["nature","relax","food"],entryCost:0,base:220000,entry:"Giá vé hiện hành cần xác nhận với khu du lịch",costNote:"Trò chơi, ăn uống và dịch vụ có thể tính riêng",desc:"Khu du lịch trên cù lao An Bình, nổi bật với vườn cây ăn trái, kênh rạch và hoạt động vui chơi. Chỉ sử dụng ảnh từ website/kênh chính thức của Vinh Sang.",activities:"Tham quan vườn · Trải nghiệm trò chơi · Khám phá cảnh quan sông nước",img:"https://www.vinhsang.com/wp-content/uploads/2022/12/6E12EC49-F846-41D7-A815-28B13B5D32C3.jpeg",infoUrl:"https://www.vinhsang.com/gioi-thieu/",infoLabel:"Website chính thức · thông tin địa điểm",photoUrl:"https://www.vinhsang.com/mot-so-hinh-anh-tai-khu-du-lich-vinh-sang/",photoLabel:"Thư viện ảnh chính thức"},
+    {name:"Khu Sinh Thái Nhà Xưa",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Chưa xác minh",phoneNote:"Cần xác nhận đúng cơ sở và số liên hệ trước khi đi",hours:"Chưa xác minh giờ mở cửa hiện hành",holidayNote:"Liên hệ trước để xác nhận cơ sở còn hoạt động, giá và giờ mở cửa",category:"Sinh thái · Nhà cổ",type:["nature","culture","relax"],entryCost:0,base:150000,entry:"Chưa có giá vé hiện hành được xác minh",costNote:"Chi phí chỉ là dự toán tham khảo",desc:"Bổ sung theo tên điểm người dùng cung cấp. Chưa đủ căn cứ xác nhận địa chỉ, hoạt động hiện hành và ảnh chính chủ; không dùng ảnh nhà cổ khác thay thế.",activities:"Xác minh địa chỉ và dịch vụ trước chuyến đi",img:"",infoUrl:"https://www.google.com/search?q=Khu+Sinh+Th%C3%A1i+Nh%C3%A0+X%C6%B0a+V%C4%A9nh+Long",infoLabel:"Tìm thông tin địa điểm",photoUrl:"https://www.google.com/search?tbm=isch&q=Khu+Sinh+Th%C3%A1i+Nh%C3%A0+X%C6%B0a+V%C4%A9nh+Long",photoLabel:"Tìm ảnh để xác minh"},
+    {name:"Chùa Tiên Châu",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Liên hệ nhà chùa/đầu mối du lịch địa phương",phoneNote:"Chưa xác minh số điện thoại trực tiếp",hours:"Tham quan ban ngày, tránh giờ hành lễ nếu không phù hợp",holidayNote:"Ăn mặc kín đáo, giữ yên tĩnh và hỏi trước khi chụp ảnh",category:"Văn hóa · Tâm linh",type:["culture","nature"],entryCost:0,base:35000,entry:"Không có vé tham quan chung được xác minh",costNote:"Gửi xe và chi tiêu cá nhân nếu có",desc:"Ngôi chùa cổ trên cù lao An Bình, khu vực xã An Bình, Vĩnh Long. Ảnh cần thể hiện đúng cổng, chính điện hoặc khuôn viên Chùa Tiên Châu.",activities:"Tìm hiểu kiến trúc chùa · Tham quan với thái độ tôn trọng",img:"",infoUrl:"https://www.google.com/search?q=Ch%C3%B9a+Ti%C3%AAn+Ch%C3%A2u+V%C4%A9nh+Long",infoLabel:"Tìm thông tin địa điểm",photoUrl:"https://www.google.com/search?tbm=isch&q=Ch%C3%B9a+Ti%C3%AAn+Ch%C3%A2u+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng chùa"},
+    {name:"Chùa Phước Hậu",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Liên hệ nhà chùa/đầu mối du lịch địa phương",phoneNote:"Chưa xác minh số điện thoại trực tiếp",hours:"Tham quan ban ngày; giờ sinh hoạt tôn giáo có thể ảnh hưởng việc tham quan",holidayNote:"Mặc trang phục lịch sự, giữ yên tĩnh và tuân thủ biển hướng dẫn",category:"Văn hóa · Tâm linh",type:["culture","nature"],entryCost:0,base:35000,entry:"Không có vé tham quan chung được xác minh",costNote:"Gửi xe và chi tiêu cá nhân nếu có",desc:"Chùa Phước Hậu ở khu vực Tam Bình, nổi tiếng với khu vườn kinh đá. Cần dùng ảnh chụp đúng khuôn viên chùa, không lấy ảnh chùa khác.",activities:"Tham quan khuôn viên · Tìm hiểu vườn kinh đá nếu mở cửa",img:"",infoUrl:"https://www.google.com/search?q=Ch%C3%B9a+Ph%C6%B0%E1%BB%9Bc+H%E1%BA%ADu+V%C4%A9nh+Long",infoLabel:"Tìm thông tin địa điểm",photoUrl:"https://www.google.com/search?tbm=isch&q=Ch%C3%B9a+Ph%C6%B0%E1%BB%9Bc+H%E1%BA%ADu+V%C4%A9nh+Long+v%C6%B0%E1%BB%9Dn+kinh+%C4%91%C3%A1",photoLabel:"Tìm ảnh đúng chùa"},
+    {name:"Chùa Phật Ngọc Xá Lợi Vĩnh Long",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Liên hệ nhà chùa/đầu mối du lịch địa phương",phoneNote:"Chưa xác minh số điện thoại trực tiếp",hours:"Tham quan ban ngày; kiểm tra giờ lễ trước khi đi",holidayNote:"Mặc trang phục lịch sự và tránh gây ồn tại nơi thờ tự",category:"Kiến trúc · Tâm linh",type:["culture","nature"],entryCost:0,base:35000,entry:"Không có vé tham quan chung được xác minh",costNote:"Gửi xe và chi tiêu cá nhân nếu có",desc:"Điểm đến Phật giáo tại Vĩnh Long, có công trình tượng Phật Ngọc Xá Lợi. Chỉ dùng ảnh chụp thực tế tại đúng ngôi chùa này.",activities:"Tham quan kiến trúc · Tìm hiểu không gian Phật giáo",img:"",infoUrl:"https://www.google.com/search?q=Ch%C3%B9a+Ph%E1%BA%ADt+Ng%E1%BB%8Dc+X%C3%A1+L%E1%BB%A3i+V%C4%A9nh+Long",infoLabel:"Tìm thông tin địa điểm",photoUrl:"https://www.google.com/search?tbm=isch&q=Ch%C3%B9a+Ph%E1%BA%ADt+Ng%E1%BB%8Dc+X%C3%A1+L%E1%BB%A3i+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng chùa"},
+    {name:"Chùa Khmer Phù Ly",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Liên hệ nhà chùa/đầu mối du lịch địa phương",phoneNote:"Chưa xác minh số điện thoại trực tiếp",hours:"Tham quan ban ngày; tôn trọng giờ sinh hoạt tôn giáo",holidayNote:"Tôn trọng nghi lễ Khmer, ăn mặc lịch sự và hỏi trước khi chụp ảnh",category:"Văn hóa Khmer · Kiến trúc",type:["culture","nature"],entryCost:0,base:35000,entry:"Không có vé tham quan chung được xác minh",costNote:"Gửi xe và chi tiêu cá nhân nếu có",desc:"Chùa Khmer Phù Ly tại khu vực Đông Bình, Bình Minh, Vĩnh Long. Hình ảnh cần đúng kiến trúc và khuôn viên chùa Phù Ly.",activities:"Tìm hiểu kiến trúc Khmer · Tham quan với thái độ tôn trọng",img:"",infoUrl:"https://www.google.com/search?q=Ch%C3%B9a+Khmer+Ph%C3%B9+Ly+V%C4%A9nh+Long",infoLabel:"Tìm thông tin địa điểm",photoUrl:"https://www.google.com/search?tbm=isch&q=Ch%C3%B9a+Khmer+Ph%C3%B9+Ly+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng chùa"},
+    {name:"Cơm niêu Nam Bộ (Nhà hàng Nam Bộ Xưa)",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Chưa xác minh",phoneNote:"Xác nhận đúng nhà hàng, địa chỉ và số liên hệ trước khi đi",hours:"Chưa xác minh giờ mở cửa hiện hành",holidayNote:"Nên gọi trước nếu đi nhóm hoặc ngày lễ",category:"Ẩm thực · Cơm niêu",type:["food"],entryCost:0,base:130000,entry:"Không vé; thanh toán theo món/combo",costNote:"Giá phụ thuộc món và số người; hỏi thực đơn hiện hành",desc:"Thêm nhà hàng theo tên bạn cung cấp. Chưa xác minh được nguồn ảnh chính thức và địa chỉ chính xác nên không hiển thị ảnh không rõ nguồn.",activities:"Xem thực đơn · Hỏi giá và giờ phục vụ trước",img:"",infoUrl:"https://www.google.com/search?q=C%C6%A1m+ni%C3%AAu+Nam+B%E1%BB%99+X%C6%B0a+V%C4%A9nh+Long",infoLabel:"Tìm thông tin nhà hàng",photoUrl:"https://www.google.com/search?tbm=isch&q=C%C6%A1m+ni%C3%AAu+Nam+B%E1%BB%99+X%C6%B0a+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng nhà hàng"},
+    {name:"Vườn ẩm thực Mai An Tiêm",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Chưa xác minh",phoneNote:"Cần xác nhận đúng cơ sở và số liên hệ",hours:"Chưa xác minh giờ mở cửa hiện hành",holidayNote:"Gọi trước để xác nhận giờ hoạt động và đặt bàn",category:"Ẩm thực · Vườn ẩm thực",type:["food","relax"],entryCost:0,base:140000,entry:"Không vé; thanh toán theo món",costNote:"Giá món và dịch vụ cần hỏi trực tiếp",desc:"Địa điểm ẩm thực được thêm theo danh sách của bạn. Chưa xác minh được ảnh chính thức hoặc địa chỉ chính xác nên không dùng ảnh quán khác.",activities:"Xác nhận địa chỉ · Hỏi thực đơn và giá trước khi đến",img:"",infoUrl:"https://www.google.com/search?q=V%C6%B0%E1%BB%9Dn+%E1%BA%A9m+th%E1%BB%B1c+Mai+An+Ti%C3%AAm+V%C4%A9nh+Long",infoLabel:"Tìm thông tin nhà hàng",photoUrl:"https://www.google.com/search?tbm=isch&q=V%C6%B0%E1%BB%9Dn+%E1%BA%A9m+th%E1%BB%B1c+Mai+An+Ti%C3%AAm+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng nhà hàng"},
+    {name:"Tiệm Ăn Đồng Khánh Vĩnh Long",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Chưa xác minh",phoneNote:"Cần xác nhận đúng cơ sở và số liên hệ",hours:"Chưa xác minh giờ mở cửa hiện hành",holidayNote:"Kiểm tra giờ bán và đặt bàn nếu đi nhóm",category:"Ẩm thực · Quán ăn",type:["food"],entryCost:0,base:100000,entry:"Không vé; thanh toán theo món",costNote:"Giá món cần xác nhận tại quán",desc:"Bổ sung theo tên tiệm bạn cung cấp. Không dùng ảnh nhà hàng Đồng Khánh ở tỉnh/thành khác khi chưa xác minh đúng cơ sở Vĩnh Long.",activities:"Xác nhận địa chỉ · Kiểm tra thực đơn và giờ bán",img:"",infoUrl:"https://www.google.com/search?q=Ti%E1%BB%87m+%C4%82n+%C4%90%E1%BB%93ng+Kh%C3%A1nh+V%C4%A9nh+Long",infoLabel:"Tìm thông tin quán",photoUrl:"https://www.google.com/search?tbm=isch&q=Ti%E1%BB%87m+%C4%82n+%C4%90%E1%BB%93ng+Kh%C3%A1nh+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng quán"},
+    {name:"Bún mắm Cô Ba",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Chưa xác minh",phoneNote:"Tên quán có thể trùng; xác nhận địa chỉ cụ thể trước khi ghé",hours:"Chưa xác minh giờ bán",holidayNote:"Hỏi trước giờ bán, giá và tình trạng còn món",category:"Ẩm thực · Bún mắm",type:["food"],entryCost:0,base:65000,entry:"Không vé; thanh toán theo tô/món",costNote:"Giá thực tế tùy khẩu phần và món thêm",desc:"Thêm quán bún mắm theo tên bạn cung cấp. Cần xác định đúng cơ sở ở Vĩnh Long trước khi gắn ảnh quán hoặc món ăn.",activities:"Thưởng thức bún mắm · Hỏi giá và giờ bán",img:"",infoUrl:"https://www.google.com/search?q=B%C3%BAn+m%E1%BA%AFm+C%C3%B4+Ba+V%C4%A9nh+Long",infoLabel:"Tìm thông tin quán",photoUrl:"https://www.google.com/search?tbm=isch&q=B%C3%BAn+m%E1%BA%AFm+C%C3%B4+Ba+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng quán"},
+    {name:"Quán cơm Tân Tân",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Chưa xác minh",phoneNote:"Cần xác nhận đúng địa chỉ và số điện thoại",hours:"Chưa xác minh giờ bán",holidayNote:"Kiểm tra giờ hoạt động trước khi đi",category:"Ẩm thực · Cơm",type:["food"],entryCost:0,base:60000,entry:"Không vé; thanh toán theo món",costNote:"Giá món cần xác nhận tại quán",desc:"Bổ sung quán cơm theo danh sách của bạn. Vì tên có thể trùng, chưa gắn ảnh cho đến khi xác định đúng cơ sở.",activities:"Xác nhận địa chỉ · Hỏi thực đơn và giá",img:"",infoUrl:"https://www.google.com/search?q=Qu%C3%A1n+c%C6%A1m+T%C3%A2n+T%C3%A2n+V%C4%A9nh+Long",infoLabel:"Tìm thông tin quán",photoUrl:"https://www.google.com/search?tbm=isch&q=Qu%C3%A1n+c%C6%A1m+T%C3%A2n+T%C3%A2n+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng quán"},
+    {name:"Út Trinh Homestay",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Xem thông tin liên hệ trên website chính thức",phoneNote:"Liên hệ trước để xác nhận địa điểm, phòng trống và dịch vụ",hours:"Theo đặt phòng; xác nhận giờ nhận/trả phòng",holidayNote:"Nên đặt trước dịp cuối tuần và lễ",category:"Homestay · Trải nghiệm miệt vườn",type:["nature","relax","culture"],entryCost:0,base:650000,entry:"Không vé nếu lưu trú; giá phòng tùy ngày và loại phòng",costNote:"Chi phí lưu trú thay đổi theo phòng và gói trải nghiệm",desc:"Homestay miệt vườn có hoạt động trải nghiệm văn hóa và đời sống địa phương. Lưu ý kiểm tra thông tin mới nhất trên website chính thức vì cơ sở có thể cập nhật dịch vụ.",activities:"Lưu trú · Trải nghiệm địa phương · Đặt trước hoạt động",img:"",infoUrl:"https://uttrinhhomestay.com/",infoLabel:"Website chính thức",photoUrl:"https://www.google.com/search?tbm=isch&q=%C3%9At+Trinh+Homestay+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng homestay"},
+    {name:"Happy Family Guesthouse (ThuyAn Homestay)",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Liên hệ qua nền tảng đặt phòng",phoneNote:"Tên cơ sở có thể được ghi khác nhau trên các nền tảng; xác nhận đúng nơi trước khi đặt",hours:"Theo đặt phòng; kiểm tra giờ nhận/trả phòng",holidayNote:"Đặt trước và xác nhận vị trí, phương tiện đưa đón",category:"Guesthouse · Homestay",type:["nature","relax"],entryCost:0,base:650000,entry:"Không vé; giá lưu trú theo ngày và loại phòng",costNote:"Giá thay đổi theo ngày, loại phòng và nền tảng đặt",desc:"Happy Family Guesthouse được mô tả là nhà nghỉ nhỏ ven sông, có không gian xanh. Cần đối chiếu tên/địa chỉ với ThuyAn Homestay trước khi gộp hai tên thành một cơ sở.",activities:"Xác nhận tên và vị trí · Kiểm tra phòng và tiện ích trước khi đặt",img:"",infoUrl:"https://www.google.com/search?q=Happy+Family+Guesthouse+ThuyAn+Homestay+Vinh+Long",infoLabel:"Tìm thông tin lưu trú",photoUrl:"https://www.google.com/search?tbm=isch&q=Happy+Family+Guesthouse+ThuyAn+Homestay+Vinh+Long",photoLabel:"Tìm ảnh đúng cơ sở"},
+    {name:"Song Me Home",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Liên hệ qua trang đặt phòng",phoneNote:"Kiểm tra đúng tên cơ sở và địa chỉ trên nền tảng đặt phòng",hours:"Theo đặt phòng",holidayNote:"Đặt trước ngày lễ; xác nhận giờ nhận/trả phòng và chính sách",category:"Homestay · Nghỉ dưỡng",type:["nature","relax"],entryCost:0,base:650000,entry:"Không vé; giá phòng theo ngày và loại phòng",costNote:"Giá hiển thị trên nền tảng có thể thay đổi",desc:"Sông Mê Home là cơ sở lưu trú tại Vĩnh Long được liệt kê trên các nền tảng đặt phòng. Hãy dùng ảnh trong hồ sơ chính thức/đặt phòng của đúng cơ sở.",activities:"Lưu trú · Kiểm tra tiện nghi và vị trí trước khi đặt",img:"",infoUrl:"https://www.booking.com/homestay/city/vn/vinh-long.html",infoLabel:"Danh sách lưu trú tham khảo",photoUrl:"https://www.google.com/search?tbm=isch&q=Song+Me+Home+Vinh+Long",photoLabel:"Tìm ảnh đúng homestay"},
+    {name:"Nhà Dừa CocoHome Vĩnh Long",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"0270 350 5356",phoneNote:"Số liên hệ trên website chính thức",hours:"Theo giờ đón khách/đặt dịch vụ; nên liên hệ trước",holidayNote:"Nên đặt trước nếu tham quan theo đoàn hoặc dùng bữa",category:"Nhà cổ · Homestay · Sinh thái",type:["nature","relax","culture","food"],entryCost:0,base:350000,entry:"Phí tham quan và hoạt động tùy dịch vụ; xác nhận trực tiếp",costNote:"Ăn uống, lưu trú và trải nghiệm tính theo gói",desc:"Nhà dừa trên cù lao An Bình, nổi bật với kiến trúc làm từ vật liệu cây dừa và trải nghiệm văn hóa miệt vườn. Ưu tiên ảnh từ website chính thức của CocoHome.",activities:"Tham quan nhà dừa · Thưởng thức món địa phương · Trải nghiệm văn hóa nếu có đặt trước",img:"",infoUrl:"https://cocohomevinhlong.vn/",infoLabel:"Website chính thức",photoUrl:"https://www.google.com/search?tbm=isch&q=Nh%C3%A0+D%E1%BB%ABa+CocoHome+V%C4%A9nh+Long",photoLabel:"Tìm ảnh đúng địa điểm"},
+    {name:"MEKONG NATURE LODGE",province:"Vĩnh Long",regionLabel:"Vĩnh Long cũ",phone:"Chưa xác minh",phoneNote:"Cần xác minh đúng cơ sở, địa chỉ và kênh đặt phòng",hours:"Theo đặt phòng; chưa xác minh lịch hoạt động hiện hành",holidayNote:"Liên hệ trước để xác nhận cơ sở còn hoạt động, phòng trống và giá",category:"Lodge · Nghỉ dưỡng thiên nhiên",type:["nature","relax"],entryCost:0,base:750000,entry:"Không vé nếu lưu trú; giá phòng cần xác nhận",costNote:"Dự toán tham khảo, không phải giá phòng chính thức",desc:"Thêm theo tên bạn cung cấp. Tên này cần được đối chiếu với địa chỉ/kênh đặt phòng chính thức trước khi gắn thông tin hoặc ảnh, tránh nhầm với lodge khác ở đồng bằng sông Cửu Long.",activities:"Xác minh địa chỉ · Kiểm tra phòng, dịch vụ và đường đi trước khi đặt",img:"",infoUrl:"https://www.google.com/search?q=MEKONG+NATURE+LODGE+V%C4%A9nh+Long",infoLabel:"Tìm thông tin cơ sở",photoUrl:"https://www.google.com/search?tbm=isch&q=MEKONG+NATURE+LODGE+V%C4%A9nh+Long",photoLabel:"Tìm ảnh để xác minh"}
+
+  ];
+
+  // Địa chỉ được ghi theo địa giới hiện hành; nơi rộng/không có cổng chung được ghi rõ là khu vực.
+  const placeAddresses = {
+    "Cù lao An Bình": "Cù lao An Bình, khu vực các xã An Bình, Bình Hòa Phước, Hòa Ninh và Đồng Phú, tỉnh Vĩnh Long; chọn nhà vườn cụ thể trước khi đi.",
+    "Văn Thánh Miếu": "Đường Trần Phú, phường Phước Hậu, tỉnh Vĩnh Long.",
+    "Lò gạch Mang Thít": "Khu vực Mang Thít cũ, tỉnh Vĩnh Long; làng nghề trải rộng dọc kênh Thầy Cai, cần chọn lò cụ thể trên bản đồ.",
+    "Vườn trái cây địa phương": "Không có địa chỉ chung; mỗi nhà vườn có địa chỉ riêng — chọn tên vườn trước khi đi.",
+    "Chợ địa phương & món ngon": "Chưa chọn chợ/quán cụ thể; địa chỉ thay đổi theo nơi bán.",
+    "Khu du lịch sinh thái": "Tên gọi chung, chưa xác định cơ sở cụ thể; cần chọn tên khu du lịch trước khi đi.",
+    "Khu du lịch Cồn Phụng": "Tờ bản đồ số 3, thửa đất số 32, ấp 10 (ấp Tân Vinh), xã Phú Túc, tỉnh Vĩnh Long.",
+    "Khu di tích Nguyễn Đình Chiểu": "Ấp Giồng Cục, xã Ba Tri, tỉnh Vĩnh Long (khu vực xã An Đức, huyện Ba Tri cũ).",
+    "Sân chim Vàm Hồ": "Khu vực các xã Mỹ Hòa, Tân Mỹ và Tân Xuân (Ba Tri cũ), tỉnh Vĩnh Long; xác nhận điểm vào/đón khách trước khi đi.",
+    "Đặc sản xứ dừa Bến Tre": "Không có một địa chỉ chung; chọn cửa hàng, chợ hoặc cơ sở sản xuất cụ thể.",
+    "Ao Bà Om": "Khu di tích Ao Bà Om, phường Nguyệt Hóa, tỉnh Vĩnh Long.",
+    "Chùa Âng": "Phường Nguyệt Hóa, tỉnh Vĩnh Long, gần khu di tích Ao Bà Om.",
+    "Biển Ba Động": "Khu vực ấp Ba Động, phường Trường Long Hòa, tỉnh Vĩnh Long.",
+    "Bún nước lèo và bánh tét Trà Cuôn": "Khu vực Trà Cuôn, tỉnh Vĩnh Long; chọn quán hoặc cơ sở bánh tét cụ thể trước khi đi.",
+    "Làng hoa kiểng Cái Mơn – Chợ Lách": "Khu vực xã Vĩnh Thành, tỉnh Vĩnh Long (địa bàn Chợ Lách cũ); các nhà vườn có địa chỉ riêng.",
+    "Khu du lịch Lan Vương": "Ấp 2, khu vực xã Phú Nhuận cũ, tỉnh Vĩnh Long (thành phố Bến Tre cũ); kiểm tra đúng cổng trên bản đồ.",
+    "Cồn Quy": "Cồn Quy trên sông Tiền, tỉnh Vĩnh Long; cần xác nhận bến thuyền hoặc đơn vị tour trước khi đi.",
+    "Chùa Vàm Ray": "Khu vực xã Hàm Tân, huyện Trà Cú cũ, tỉnh Vĩnh Long; xác nhận cổng vào trên bản đồ trước khi đi.",
+    "Chùa Hang (Kompong Chray)": "Khóm 3, xã Châu Thành, tỉnh Vĩnh Long (khu vực Trà Vinh cũ).",
+    "Khu du lịch Huỳnh Kha": "Khu vực Long Bình, phường Nguyệt Hóa, tỉnh Vĩnh Long (thành phố Trà Vinh cũ); kiểm tra đúng cổng trên bản đồ.",
+    "Khu vực ngắm điện gió Đông Hải 1": "Khu vực ven biển Duyên Hải cũ, tỉnh Vĩnh Long; chỉ quan sát từ nơi công cộng được phép, không có điểm vào du lịch chung.",
+    "Chùa Cò (Chùa Nôdol)": "Ấp Giồng Lớn, xã Đại An, tỉnh Vĩnh Long (địa bàn Trà Cú, Trà Vinh cũ).",
+    "Cù lao Tân Quy": "Cù lao Tân Quy trên sông Hậu, khu vực xã An Phú Tân cũ, tỉnh Vĩnh Long; xác nhận bến đò/nhà vườn trước khi đi.",
+    "Cù lao Long Trị": "Cù lao Long Trị trên sông Cổ Chiên, tỉnh Vĩnh Long (địa bàn Trà Vinh cũ); xác nhận bến đón khách.",
+    "Khu du lịch sinh thái Tường Anh": "Chưa xác minh được địa chỉ chính xác; tìm đúng cơ sở và xác nhận trước khi đi.",
+    "Bánh canh Bến Có Út Hảo": "Chưa xác minh được địa chỉ chính xác của quán Út Hảo; mở bản đồ và xác nhận đúng cơ sở trước khi đi.",
+    "Bún suông Hủ Yến": "Chưa xác minh được địa chỉ chính xác của quán Hủ Yến; cần xác nhận tên quán trên bản đồ.",
+    "Bún nước lèo Dũng Chưởng": "Chưa xác minh được địa chỉ chính xác của quán; cần xác nhận tên quán trên bản đồ.",
+    "Bún nước lèo Kim Dung – Ao Bà Om": "Khu vực gần Ao Bà Om, phường Nguyệt Hóa, tỉnh Vĩnh Long; cần xác nhận đúng quán.",
+    "Khách sạn Cửu Long": "Ấp Thạnh Hòa A, xã Thạnh Phú, tỉnh Vĩnh Long (địa bàn Bến Tre cũ); gọi trước để xác nhận đúng cơ sở.",
+    "Khách sạn Bích Ngoan": "Chưa xác minh được địa chỉ chính xác; xác nhận tên và vị trí khách sạn trước khi đặt.",
+    "Homestyle Cồn Chim": "Khu du lịch cộng đồng Cồn Chim, tỉnh Vĩnh Long (địa bàn Trà Vinh cũ); cần xác nhận bến đón và đơn vị lưu trú.",
+    "Mekong Garden Resort & Homestay": "Khu vực Trà Vinh cũ, tỉnh Vĩnh Long; xác nhận địa chỉ và cổng vào qua đơn vị đặt phòng.",
+    "Sokfarm Farmstay": "Khu vực Tiểu Cần, tỉnh Vĩnh Long (địa bàn Trà Vinh cũ); xác nhận địa chỉ cụ thể với farmstay.",
+    "KDL sinh thái Làng Xanh": "111D, ĐT883/QL57B, khu vực An Phú Thạnh, xã Phú Túc, tỉnh Vĩnh Long (địa bàn Châu Thành, Bến Tre cũ).",
+    "KDL sinh thái Hạ Thảo": "Ấp 3, xã Nhơn Thạnh, khu vực thành phố Bến Tre cũ, tỉnh Vĩnh Long; khu Vườn Mít ở ấp 2B, đường 19/5.",
+    "Biển Cồn Bửng": "Khu vực xã Thạnh Hải, huyện Thạnh Phú cũ, tỉnh Vĩnh Long (Bến Tre cũ); chọn đúng điểm bãi biển trên bản đồ.",
+    "Bãi biển và cánh đồng điện gió Bình Đại": "Khu vực ven biển Bình Đại cũ, tỉnh Vĩnh Long; chỉ ngắm từ nơi công cộng được phép, không vào khu vực vận hành điện gió.",
+    "Chuối đập nước cốt dừa": "Món ăn bán tại nhiều hàng quán ở khu vực Bến Tre cũ; không có địa chỉ chung, cần chọn người bán cụ thể.",
+    "Lẩu mắm Trúc Giang": "293D Nguyễn Thị Định, khu vực Phú Khương/Phú Hưng cũ, tỉnh Vĩnh Long (Bến Tre cũ).",
+    "Bún riêu Tú Điền": "Khu vực Tú Điền, thành phố Bến Tre cũ, tỉnh Vĩnh Long; xác nhận vị trí quán trên bản đồ trước khi đi.",
+    "Hủ tiếu hải sản Bến Tre": "38 Phan Ngọc Tòng, khu vực trung tâm Bến Tre cũ, tỉnh Vĩnh Long; gọi xác nhận quán còn hoạt động trước khi đi.",
+    "Quán ăn gia đình Phương Dung": "Chưa xác minh được địa chỉ chính xác; cần tên đường/phường hoặc liên kết bản đồ để tránh nhầm cơ sở.",
+    "Chùa Vạn Phước": "Khu vực Bình Đại cũ, tỉnh Vĩnh Long (Bến Tre cũ); xác nhận đường vào trên bản đồ trước khi đi.",
+    "Nhà thờ Cái Mơn": "Quốc lộ 57, xã Vĩnh Thành, khu vực Chợ Lách cũ, tỉnh Vĩnh Long.",
+    "Forever Green Resort": "Ấp Phú Khương, xã Phú Túc, tỉnh Vĩnh Long (khu vực Châu Thành, Bến Tre cũ).",
+    "Ben Tre Riverside Resort": "708 Nguyễn Văn Tư, phường Bến Tre, tỉnh Vĩnh Long (khu vực thành phố Bến Tre cũ).",
+    "Jardin Du Mekong Homestay (Chợ Lách)": "16/66, ấp Định Bình, xã Hòa Nghĩa, khu vực Chợ Lách cũ, tỉnh Vĩnh Long.",
+    "Rooster Mekong Home (Chợ Lách)": "Ấp An Hòa, xã Long Thới, khu vực Chợ Lách cũ, tỉnh Vĩnh Long.",
+
+    "Khu Du Lịch Vinh Sang": "Cù lao An Bình, xã An Bình, tỉnh Vĩnh Long; chọn đúng cổng/khu đón khách theo website chính thức.",
+    "Khu Sinh Thái Nhà Xưa": "Chưa xác minh được địa chỉ chính xác; cần đối chiếu tên cơ sở trên bản đồ trước khi đi.",
+    "Chùa Tiên Châu": "Cù lao An Bình, xã An Bình, tỉnh Vĩnh Long.",
+    "Chùa Phước Hậu": "Khu vực xã Ngãi Tứ, tỉnh Vĩnh Long (địa bàn Tam Bình cũ); kiểm tra vị trí chính xác trên bản đồ.",
+    "Chùa Phật Ngọc Xá Lợi Vĩnh Long": "Khu vực xã Tân Ngãi, tỉnh Vĩnh Long; xác nhận cổng vào trên bản đồ trước khi đi.",
+    "Chùa Khmer Phù Ly": "Khu vực phường Đông Thuận, tỉnh Vĩnh Long (địa bàn Bình Minh cũ); xác nhận vị trí trên bản đồ.",
+    "Cơm niêu Nam Bộ (Nhà hàng Nam Bộ Xưa)": "Chưa xác minh được địa chỉ chính xác; cần đối chiếu đúng nhà hàng trên bản đồ.",
+    "Vườn ẩm thực Mai An Tiêm": "Chưa xác minh được địa chỉ chính xác; cần đối chiếu đúng cơ sở trên bản đồ.",
+    "Tiệm Ăn Đồng Khánh Vĩnh Long": "Chưa xác minh được địa chỉ chính xác; cần xác nhận đúng cơ sở.",
+    "Bún mắm Cô Ba": "Chưa xác minh được địa chỉ chính xác; tên quán có thể trùng, cần xác nhận vị trí.",
+    "Quán cơm Tân Tân": "Chưa xác minh được địa chỉ chính xác; cần xác nhận đúng cơ sở.",
+    "Út Trinh Homestay": "Xem địa chỉ và hướng dẫn đi lại trên website chính thức; xác nhận điểm đón trước khi đặt.",
+    "Happy Family Guesthouse (ThuyAn Homestay)": "Chưa xác minh được hai tên có cùng chỉ một cơ sở hay không; đối chiếu địa chỉ trên nền tảng đặt phòng.",
+    "Song Me Home": "Khu vực thành phố Vĩnh Long; xác nhận địa chỉ đầy đủ trong hồ sơ đặt phòng.",
+    "Nhà Dừa CocoHome Vĩnh Long": "Ấp Hòa Quý, xã Hòa Ninh, tỉnh Vĩnh Long, khu vực cù lao An Bình.",
+    "MEKONG NATURE LODGE": "Chưa xác minh được địa chỉ chính xác; cần liên kết chính thức hoặc địa chỉ từ đơn vị lưu trú."
+
+  };
+
+  const money = n => new Intl.NumberFormat('vi-VN').format(n) + 'đ';
+  const results = document.getElementById('results');
+  const budgetInput = document.getElementById('budget');
+  const interestInput = document.getElementById('interest');
+  const regionInput = document.getElementById('region');
+  const transportInput = document.getElementById('transport');
+
+  function transportCost(mode){
+    return mode === 'bus' ? 50000 : mode === 'car' ? 180000 : 70000;
+  }
+  function render(){
+    let budget = Number(budgetInput.value);
+    if (budget > 5000000) { budget = 5000000; budgetInput.value = 5000000; }
+    const interest = interestInput.value;
+    const region = regionInput.value;
+    const travel = transportInput.value;
+    results.innerHTML = '';
+    if (!Number.isFinite(budget) || budget <= 0){
+      document.getElementById('status').textContent = '';
+      document.getElementById('subtitle').textContent = 'Vui lòng nhập số tiền lớn hơn 0.';
+      results.innerHTML = '<div class="empty">Nhập ngân sách hợp lệ để nhận gợi ý nhé.</div>';
+      return;
+    }
+    const travelFee = transportCost(travel);
+    const filtered = places
+      .filter(p => interest === 'all' || p.type.includes(interest))
+      .filter(p => region === 'all' || (p.regionLabel || (p.province === 'Bến Tre' ? 'Bến Tre cũ' : p.province === 'Trà Vinh' ? 'Trà Vinh cũ' : 'Vĩnh Long cũ')) === region)
+      .map(p => ({...p,total:p.base + travelFee + (p.entryCost || 0)}))
+      .filter(p => p.total <= budget)
+      .sort((a,b) => a.total - b.total);
+
+    document.getElementById('status').textContent = `${filtered.length} gợi ý`;
+    document.getElementById('subtitle').textContent = `Ngân sách ${money(budget)} · Ước tính cho 1 người trong ngày`;
+    if (!filtered.length){
+      results.innerHTML = `<div class="empty"><h3>Chưa tìm thấy lựa chọn vừa ngân sách</h3><p>Thử tăng ngân sách, chọn “Tất cả trải nghiệm” hoặc chọn phương tiện tiết kiệm hơn.</p></div>`;
+      return;
+    }
+    const regionOrder = ['Vĩnh Long cũ','Bến Tre cũ','Trà Vinh cũ'];
+    const regionOf = p => p.regionLabel || (p.province === 'Bến Tre' ? 'Bến Tre cũ' : p.province === 'Trà Vinh' ? 'Trà Vinh cũ' : 'Vĩnh Long cũ');
+    const grouped = regionOrder.map(label => ({label, items: filtered.filter(p => regionOf(p) === label)})).filter(group => group.items.length);
+    grouped.forEach(group => {
+      const heading = document.createElement('h2');
+      heading.className = 'region-heading';
+      heading.textContent = group.label === 'Vĩnh Long cũ' ? '📍 Vĩnh Long — khu vực Vĩnh Long trước sáp nhập' : group.label === 'Bến Tre cũ' ? '🥥 Bến Tre — khu vực Bến Tre trước sáp nhập' : '🛕 Trà Vinh — khu vực Trà Vinh trước sáp nhập';
+      results.appendChild(heading);
+      group.items.forEach(p => {
+      const remaining = budget - p.total;
+      const address = placeAddresses[p.name] || "Chưa có địa chỉ cụ thể; hãy mở bản đồ để chọn điểm đến.";
+      const card = document.createElement('article');
+      card.className = 'place';
+      card.innerHTML = `
+        ${p.img ? `<img src="${p.img}" alt="Ảnh thực tế tham khảo: ${p.name}" title="Ảnh tham khảo về ${p.name}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22900%22%20height%3D%22520%22%20viewBox%3D%220%200%20900%20520%22%3E%3Crect%20width%3D%22900%22%20height%3D%22520%22%20fill%3D%22%23e6f4ef%22%2F%3E%3Ccircle%20cx%3D%22730%22%20cy%3D%22105%22%20r%3D%2248%22%20fill%3D%22%23f4d27a%22%2F%3E%3Cpath%20d%3D%22M0%20300%20Q160%20240%20300%20300%20T600%20285%20T900%20300%20V520%20H0Z%22%20fill%3D%22%238cc9a6%22%2F%3E%3Cpath%20d%3D%22M0%20360%20Q170%20315%20340%20360%20T680%20350%20T900%20360%20V520%20H0Z%22%20fill%3D%22%234e9b83%22%2F%3E%3Cpath%20d%3D%22M0%20430%20Q180%20390%20360%20430%20T720%20420%20T900%20430%20V520%20H0Z%22%20fill%3D%22%2370b8d5%22%2F%3E%3Cg%20fill%3D%22%2334765e%22%3E%3Cpath%20d%3D%22M120%20290%20l-28%20-80%2028%2015%2028%20-15z%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%22285%22%20width%3D%2210%22%20height%3D%2250%22%2F%3E%3Cpath%20d%3D%22M190%20315%20l-30%20-85%2030%2015%2030%20-15z%22%2F%3E%3Crect%20x%3D%22185%22%20y%3D%22310%22%20width%3D%2210%22%20height%3D%2245%22%2F%3E%3Cpath%20d%3D%22M790%20280%20l-32%20-90%2032%2017%2032%20-17z%22%2F%3E%3Crect%20x%3D%22785%22%20y%3D%22275%22%20width%3D%2210%22%20height%3D%2255%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22120%22%20y%3D%22365%22%20width%3D%22660%22%20height%3D%2290%22%20rx%3D%2218%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.9%22%2F%3E%3Ctext%20x%3D%22450%22%20y%3D%22402%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23245b4a%22%3E%E1%BA%A2NH%20%C4%90ANG%20C%E1%BA%ACP%20NH%E1%BA%ACT%3C%2Ftext%3E%3Ctext%20x%3D%22450%22%20y%3D%22432%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20text-anchor%3D%22middle%22%20fill%3D%22%2342695d%22%3EVui%20l%C3%B2ng%20k%E1%BA%BFt%20n%E1%BB%91i%20Internet%20%C4%91%E1%BB%83%20xem%20%E1%BA%A3nh%20g%E1%BB%91c%3C%2Ftext%3E%3C%2Fsvg%3E';this.alt='Ảnh đang cập nhật'">` : `<div class="image-placeholder" role="img" aria-label="Ảnh tham khảo cho ${p.name}">Ảnh địa điểm<br><small>Mở Google Maps để xem thêm ảnh thực tế</small></div>`}
+        <div class="place-body">
+          <div class="tag-row"><span class="tag">${p.category}</span>${p.hot ? '<span class="tag hot-tag">🔥 Check-in nổi bật</span>' : ''}</div>
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <div class="details"><b>Địa chỉ:</b> ${address}<br><b>Giá vào cửa:</b> ${p.entry || "Chưa xác minh — vui lòng hỏi trực tiếp"}<br><b>Giờ mở cửa:</b> ${p.hours || "Liên hệ trước khi đi"}<br><b>Điện thoại:</b> ${p.phone || "Chưa có số công khai"}<br><span>${p.phoneNote || ""}</span><br><b>Ngày lễ:</b> ${p.holidayNote || "Kiểm tra giờ và giá dịp lễ"}<br><b>Trải nghiệm:</b> ${p.activities}<br><b>Chi phí khác:</b> ${p.costNote || "Tùy dịch vụ"}<br><b>Di chuyển dự kiến:</b> ${money(travelFee)}</div>
+          <div class="cost"><strong>Dự toán khoảng ${money(p.total)}/người</strong><small>Ngân sách còn lại: ${money(remaining)}. Đây là ước tính gồm chi tiêu cơ bản + di chuyển + phí vào cửa đã ghi; không phải báo giá của cơ sở.</small></div>
+          <div class="place-actions">
+            <button class="fav-btn" data-favorite="${p.name}" type="button">♡ Lưu yêu thích</button>
+            ${(() => { const mapQuery = p.name + ' ' + (placeAddresses[p.name] || p.province || 'Vĩnh Long, Việt Nam'); const encodedQuery = encodeURIComponent(mapQuery); return `
+              <a href="https://www.google.com/maps/search/?api=1&query=${encodedQuery}" target="_blank" rel="noopener noreferrer" aria-label="Xem vị trí, thông tin và ảnh có sẵn trên Google Maps của ${p.name}">📷 Xem ảnh & vị trí trên Google Maps</a>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=${encodedQuery}" target="_blank" rel="noopener noreferrer" aria-label="Tìm đường đến ${p.name} trên Google Maps">🧭 Chỉ đường</a>
+            `; })()}
+          </div>
+          ${p.infoUrl || p.photoUrl ? `<div class="source-links">${p.infoUrl ? `<a href="${p.infoUrl}" target="_blank" rel="noopener">${p.infoLabel || "Thông tin tham khảo"}</a>` : ""}${p.photoUrl && p.photoUrl !== p.infoUrl ? `<a href="${p.photoUrl}" target="_blank" rel="noopener">${p.photoLabel || "Nguồn ảnh"}</a>` : ""}</div>` : ""}
+        </div>`;
+      results.appendChild(card);
+      });
+    });
+  }
+  const favorites = new Set();
+  function renderFavorites(){
+    const box = document.getElementById('favorites');
+    if(!favorites.size){
+      box.innerHTML = '<p class="note">Bạn chưa lưu địa điểm nào. Nhấn “♡ Lưu yêu thích” trên thẻ địa điểm.</p>';
+      return;
+    }
+    box.innerHTML = '';
+    [...favorites].forEach(name=>{
+      const row = document.createElement('div');
+      row.className = 'favorite-item';
+      const title = document.createElement('strong'); title.textContent = name;
+      const remove = document.createElement('button'); remove.textContent = 'Bỏ lưu';
+      remove.addEventListener('click',()=>{favorites.delete(name);renderFavorites();});
+      row.append(title,remove); box.appendChild(row);
+    });
+  }
+  function renderCompare(){
+    const body = document.getElementById('compareBody');
+    body.innerHTML = '';
+    places.forEach(p=>{
+      const tr = document.createElement('tr');
+      const vals = [p.name + ' (' + (p.regionLabel || p.province || 'Miền Tây') + ')',p.category,money(p.base+transportCost('motorbike')+(p.entryCost||0)),(p.base<150000?'Tiết kiệm':p.base<260000?'Trung bình':'Thư giãn')];
+      vals.forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td);});
+      body.appendChild(tr);
+    });
+  }
+  const selectedPlanPlaces = new Set();
+  function renderPlanPicker(){
+    const list = document.getElementById('planPlaceList');
+    const query = (document.getElementById('planSearch')?.value || '').trim().toLocaleLowerCase('vi');
+    const matches = places.filter(p => [p.name,p.province,p.regionLabel,p.category,(p.type||[]).join(' ')].join(' ').toLocaleLowerCase('vi').includes(query));
+    list.innerHTML = '';
+    if (!matches.length) { list.innerHTML = '<p class="note">Không tìm thấy địa điểm phù hợp.</p>'; }
+    matches.forEach(p => {
+      const label = document.createElement('label'); label.className = 'plan-place-option';
+      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = selectedPlanPlaces.has(p.name); cb.value = p.name;
+      cb.addEventListener('change', () => { if(cb.checked) selectedPlanPlaces.add(p.name); else selectedPlanPlaces.delete(p.name); updatePlanSelectedCount(); });
+      const span = document.createElement('span');
+      const title = document.createElement('strong'); title.textContent = p.name;
+      const meta = document.createElement('small'); meta.textContent = `${p.regionLabel || p.province || 'Miền Tây'} · ${p.category || 'Địa điểm'} · dự toán cơ bản ${money(p.base || 0)}/người`;
+      span.append(title,meta); label.append(cb,span); list.appendChild(label);
+    });
+    updatePlanSelectedCount();
+  }
+  function updatePlanSelectedCount(){
+    const el = document.getElementById('planSelectedCount');
+    if(el) el.textContent = `Đã chọn ${selectedPlanPlaces.size} địa điểm.`;
+  }
+  function makePlan(){
+    const budget = Math.min(5000000, Math.max(0,Number(budgetInput.value)||0));
+    const people = Math.max(1,Math.min(30,Number(document.getElementById('people').value)||1));
+    const days = Number(document.getElementById('days').value)||1;
+    const fee = transportCost(transportInput.value);
+    const output = document.getElementById('planOutput');
+    const chosen = places.filter(p => selectedPlanPlaces.has(p.name));
+    if(!chosen.length){
+      output.innerHTML='<div class="empty"><h3>Bạn chưa chọn địa điểm</h3><p>Hãy đánh dấu ít nhất một địa điểm trong phần “Chọn địa điểm muốn đi”, rồi bấm “Tạo lịch trình”.</p></div>';
+      return;
+    }
+    const foodPerPersonDay = Math.max(0, Number(document.getElementById('planFood').value)||0);
+    const stayPerGroupNight = Math.max(0, Number(document.getElementById('planStay').value)||0);
+    const otherGroup = Math.max(0, Number(document.getElementById('planOther').value)||0);
+    const visitPerPerson = chosen.reduce((sum,p)=>sum+(p.base||0)+(p.entryCost||0),0);
+    const travelGroup = fee * days * people;
+    const foodGroup = foodPerPersonDay * days * people;
+    const visitGroup = visitPerPerson * people;
+    const nights = Math.max(0, days - 1);
+    const stayGroup = stayPerGroupNight * nights;
+    const totalGroup = travelGroup + foodGroup + visitGroup + stayGroup + otherGroup;
+    const perPersonEstimate = totalGroup / people;
+    const budgetStatus = perPersonEstimate <= budget
+      ? `Dự toán/người còn trong ngân sách ${money(budget)} (còn khoảng ${money(budget-perPersonEstimate)}/người).`
+      : `Dự toán/người vượt ngân sách ${money(budget)} khoảng ${money(perPersonEstimate-budget)}/người. Hãy bỏ bớt điểm hoặc giảm chi phí.`;
+    output.innerHTML='';
+    const intro=document.createElement('div'); intro.className='cost';
+    intro.innerHTML=`<strong>Tổng dự kiến cho nhóm: ${money(totalGroup)}</strong>
+      <small>${people} người · ${days} ngày · ${chosen.length} địa điểm · Bình quân ${money(perPersonEstimate)}/người.</small>
+      <small>Di chuyển: ${money(travelGroup)} · Ăn uống: ${money(foodGroup)} · Tham quan/điểm đến: ${money(visitGroup)} · Lưu trú (${nights} đêm): ${money(stayGroup)} · Chi phí khác: ${money(otherGroup)}.</small>`;
+    output.appendChild(intro);
+    const budgetNote=document.createElement('p'); budgetNote.className='note'; budgetNote.textContent=budgetStatus; output.appendChild(budgetNote);
+    const times = [{time:'08:00',title:'Buổi sáng'},{time:'10:30',title:'Cuối buổi sáng'},{time:'12:00',title:'Ăn trưa / nghỉ ngơi'},{time:'14:00',title:'Buổi chiều'},{time:'16:00',title:'Cuối buổi chiều'},{time:'18:00',title:'Buổi tối'}];
+    const perDay = Math.ceil(chosen.length / days);
+    for(let day=1;day<=days;day++){
+      const heading=document.createElement('h3'); heading.textContent=`Ngày ${day}`; output.appendChild(heading);
+      const dayPlaces=chosen.slice((day-1)*perDay,Math.min(day*perDay,chosen.length));
+      if(!dayPlaces.length){ const note=document.createElement('p'); note.className='note'; note.textContent='Ngày này để dự phòng nghỉ ngơi hoặc di chuyển.'; output.appendChild(note); continue; }
+      dayPlaces.forEach((place,index)=>{
+        const stop=document.createElement('div'); stop.className='day-stop';
+        const time=document.createElement('div'); time.className='time'; time.textContent=times[Math.min(index,times.length-1)].time;
+        const content=document.createElement('div');
+        const b=document.createElement('strong'); b.textContent=`${times[Math.min(index,times.length-1)].title}: ${place.name}`;
+        const desc=document.createElement('p'); desc.className='note'; desc.style.margin='5px 0'; desc.textContent=`${place.activities || place.desc || 'Tham quan và trải nghiệm tại địa phương.'} Dự toán cơ bản: ${money((place.base||0)+(place.entryCost||0))}/người; ${place.hours || 'nên kiểm tra giờ hoạt động trước khi đi'}.`;
+        const map=document.createElement('a'); map.href=`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.name+' '+(placeAddresses[place.name]||place.province||'Vĩnh Long, Việt Nam'))}`; map.target='_blank'; map.rel='noopener noreferrer'; map.textContent='🧭 Chỉ đường trên Google Maps'; map.style.color='var(--green)'; map.style.fontWeight='700'; map.style.fontSize='.9rem';
+        content.append(b,desc,map); stop.append(time,content); output.appendChild(stop);
+      });
+    }
+    const caution=document.createElement('p'); caution.className='note'; caution.textContent='Lưu ý: Website chưa tối ưu thứ tự theo thời gian di chuyển thực tế giữa các điểm. Hãy mở liên kết chỉ đường, xác nhận giờ mở cửa, giá vé và đặt trước nếu cần. Bạn có thể chỉnh danh sách địa điểm rồi tạo lại lịch trình.'; output.appendChild(caution);
+  }
+  document.getElementById('findBtn').addEventListener('click',render);
+  [budgetInput,interestInput,transportInput].forEach(el => el.addEventListener('change',render));
+  document.querySelectorAll('[data-money]').forEach(btn => btn.addEventListener('click',()=>{
+    budgetInput.value = btn.dataset.money; render();
+  }));
+  results.addEventListener('click',event=>{
+    const button=event.target.closest('[data-favorite]');
+    if(!button)return;
+    const name=button.dataset.favorite;
+    if(favorites.has(name)){favorites.delete(name);button.textContent='♡ Lưu yêu thích';}
+    else{favorites.add(name);button.textContent='♥ Đã lưu';}
+    renderFavorites();
+  });
+  document.getElementById('makePlan').addEventListener('click',makePlan);
+  document.getElementById('planSearch').addEventListener('input',renderPlanPicker);
+  document.getElementById('selectAllPlan').addEventListener('click',()=>{ places.forEach(p=>selectedPlanPlaces.add(p.name)); renderPlanPicker(); });
+  document.getElementById('clearPlan').addEventListener('click',()=>{ selectedPlanPlaces.clear(); renderPlanPicker(); });
+  document.getElementById('copyPlan').addEventListener('click',()=>{
+    const text=document.getElementById('planOutput').innerText;
+    if(!text.trim()){alert('Hãy tạo lịch trình trước nhé.');return;}
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(()=>alert('Đã sao chép lịch trình!')).catch(()=>alert('Trình duyệt không cho phép sao chép tự động. Hãy chọn và sao chép nội dung lịch trình.'));
+    } else alert('Hãy chọn và sao chép nội dung lịch trình.');
+  });
+
+  regionInput.addEventListener('change', render);
+  render();
+  renderPlanPicker();
+  renderCompare();
+  renderFavorites();
+</script>
+</body>
+</html>
